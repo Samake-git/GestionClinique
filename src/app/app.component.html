@@ -1,2 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css"
+    />
+  </head>
+  <body>
+    <app-login *ngIf="logIN == false" (loginEvent)="verifier($event)"></app-login>
+    <div *ngIf="logIN == true">
+      <!-- ------------------------ -->
+      <mat-toolbar class="principal header" color="primary">
+        <div class="containerR">
+          <div class="logo">
+            <img src="assets/logoo.png" alt="logo-mirashop" class="logoImg" />
+          </div>
+          <mat-divider [inset]="true"></mat-divider>
+          <div class="toggle">
+            <button style="color: #ee4d2d"
+              class="toggle_btn"
+              aria-label="Menu icon"
+              matTooltip="Menu"
+              (click)="drawer.toggle()"
+            >
+              <mat-icon>menu</mat-icon>
+            </button>
+          </div>
+        </div>
+        <!-- ------------- -->
 
-<router-outlet></router-outlet>
+        <div class="containerL">
+          <div class="userpic">
+            <button mat-icon-button matTooltip="My Account" routerLink="parametres">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #userAccountMenu></mat-menu>
+          </div>
+          <div class="i">
+            <button mat-menu-item (click)="logout()" id="Deconnexionbtn" routerLink="login">
+              <mat-icon>exit_to_app</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-toolbar>
+
+      <!-- ------------------------ -->
+      <mat-drawer-container class="containerprincipal" autosize>
+        <mat-drawer #drawer class="sidebarcote" mode="side" position="start" opened="true">
+          <mat-nav-list>
+            <div class="voirsite">
+              <span id="element2"></span>
+              <!-- <h4>Voir le site</h4> -->
+              <span id="element1"></span>
+            </div>
+
+            <mat-list-item
+              class="mat-list-item active"
+              routerLink="dashboard" id="dashboardItem" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+              
+          
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">dashboard</mat-icon>
+               <span>Dashboard</span>
+              </button>
+            </mat-list-item>
+            <mat-list-item class="mat-list-item active" id="produitsItem" routerLink="produits" routerLinkActive="active">
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">redeem</mat-icon>
+                <span>Produits</span>
+              </button>
+            </mat-list-item>
+            <mat-list-item class="mat-list-item active" id="commandeItem" routerLink="commande" routerLinkActive="active">
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">shopping_cart</mat-icon>
+              <span>  Commandes</span>
+              </button>
+            </mat-list-item>
+            <mat-list-item class="mat-list-item active" id="livraisonsItem" routerLink="livraisons" routerLinkActive="active">
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">local_shipping</mat-icon>
+                <span>Livraisons</span>
+              </button>
+            </mat-list-item>
+            <mat-list-item class="mat-list-item active" id="categorieItem" routerLink="categorie" routerLinkActive="active">
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">category</mat-icon>
+                <span>Catégories</span>
+              </button>
+            </mat-list-item>
+            <mat-list-item class="mat-list-item active" id="clientItem" routerLink="client" routerLinkActive="active">
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">people</mat-icon>
+                <span>Clients</span>
+              </button>
+            </mat-list-item>
+
+            <mat-list-item class="mat-list-item active" id="payementItem" routerLink="payement" routerLinkActive="active">
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">monetization_on</mat-icon>
+                <span>Payements</span>
+              </button>
+            </mat-list-item>
+
+            <mat-list-item class="mat-list-item active" id="personnelItem" routerLink="personnel" routerLinkActive="active">
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">supervisor_account</mat-icon>
+                <span>Personnels</span>
+              </button>
+            </mat-list-item>
+            <mat-list-item class="mat-list-item active" id="utilisateursItem" routerLink="utilisateurs" routerLinkActive="active">
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">group_add</mat-icon>
+               <span> Utilisateurs</span>
+              </button>
+            </mat-list-item>
+            <mat-list-item class="mat-list-item active" id="stockItem" routerLink="stock" routerLinkActive="active">
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">store_mall_directory</mat-icon>
+                <span>Stocks</span>
+              </button>
+            </mat-list-item>
+            <mat-list-item class="mat-list-item active" id="parametresItem" routerLink="parametres"  routerLinkActive="active">
+              <button id="parambtn" class="btn" mat-button>
+                <mat-icon style="color: #ee4d2d">settings</mat-icon>
+                <span>Paramètres</span>
+              </button>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-drawer>
+        <mat-drawer-content>
+          <div
+            style="
+              min-height: 100vh;
+              background-color: #e3f1ff;
+              color: black;
+              padding-top: 15px;
+            "
+          >
+            <router-outlet></router-outlet>
+          </div>
+        </mat-drawer-content>
+      </mat-drawer-container>
+    </div>
+  </body>
+</html>
