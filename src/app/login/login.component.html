@@ -1,29 +1,26 @@
 <div class="login-wrapper">
-    <div class="login-container">
-      <!-- Section gauche de login avec le Logo  -->
-      <div class="login-left">
-        <img class="logo" src="assets/logo.svg" alt="KENEYASO Logo" />
-      </div>
-  
-      <!--  Section droite avec les information de connexion -->
-      <div class="login-right">
-        <h2>Bienvenue sur KENEYASO</h2>
-        <form>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" class="form-control" placeholder="Enter votre email ici..." />
-          </div>
-          <div class="form-group">
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" class="form-control" placeholder="************" />
-          </div>
-          <div class="form-group remember-me">
-            <input type="checkbox" id="remember" />
-            <label for="remember">Se souvenir de Moi</label>
-          </div>
-          <button type="submit" class="btn-login">Connexion</button>
-        </form>
-      </div>
+  <div class="login-container">
+    <div class="login-left">
+      <img class="logo" src="assets/logo.svg" alt="KENEYASO Logo" />
+    </div>
+    <div class="login-right">
+      <h2>Bienvenue sur KENEYASO</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input formControlName="email" class="form-control borderall" id="email" placeholder="Email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input formControlName="password" type="password" class="form-control" id="password" placeholder="Mot de passe" required />
+        </div>
+        <div class="form-group remember-me">
+          <input type="checkbox" id="remember" />
+          <label for="remember">Se souvenir de Moi</label>
+        </div>
+        <button type="submit" class="btn-login" [disabled]="loginForm.invalid">Connexion</button>
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
+      </form>
     </div>
   </div>
-  
+</div>

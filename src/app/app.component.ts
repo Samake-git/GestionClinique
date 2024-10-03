@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { NavigationEnd, RouterModule, RouterOutlet } from '@angular/router';
-import { LoginComponent } from "./login/login.component";
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,29 +11,38 @@ import { NgIf } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { LoginEvent } from './interfaces/LoginEvent';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterModule, LoginComponent, MatIconModule, MatSidenavModule, MatToolbarModule,
+  imports: [
+    RouterOutlet,
+    RouterModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatToolbarModule,
     MatButtonModule,
     MatListModule,
-    RouterModule,
     MatSelectModule,
     MatTableModule,
     MatDividerModule,
+    ReactiveFormsModule,
     NgIf,
+    LoginComponent,
     MatMenuModule,
-    LoginComponent,],
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
-
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
+  title = 'clinic-management';
+  logIN: boolean = false; // Initialiser à false
 
   constructor(private router: Router, private el: ElementRef) {
-    
-    
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const url = this.router.url;
@@ -51,8 +59,7 @@ export class AppComponent implements OnInit{
           'stock',
           'parametres',
           'test'
-        ]; // Add all your routes here
-
+        ];
         items.forEach((item) => {
           const element = this.el.nativeElement.querySelector(`#${item}Item`);
           if (element) {
@@ -66,22 +73,23 @@ export class AppComponent implements OnInit{
     });
   }
 
-  title = 'clinic-management';
+  
 
-  logIN: boolean = false;
-
-  ngOnInit(): void {
-    let auth = localStorage.getItem('authToken');
-    if (auth != null) {
-      this.logIN = true;
-    }
-  }
-
-  verifier(value:any) {    
-    this.logIN = value;
-  }
   logout() {
     localStorage.clear();
     this.logIN = false;
+  }
+
+  // Mise à jour de la méthode verifier
+  verifier(event: LoginEvent) {
+    console.log('Événement de connexion reçu:', event);
+    this.logIN = event.success; // Mettre à jour l'état de connexion
+
+    if (event.success) {
+      console.log('Utilisateur connecté avec succès!');
+      // Vous pouvez également stocker un token ou d'autres actions ici
+    } else {
+      console.error('Échec de la connexion:', event.message);
+    }
   }
 }
