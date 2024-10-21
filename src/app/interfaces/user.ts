@@ -13,4 +13,6 @@ export class User {
 export class RoleType {
   id!: number;
   nom!: string; // Utilisez 'string' au lieu de 'String'
+
 }
+

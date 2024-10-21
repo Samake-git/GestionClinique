@@ -1,0 +1,122 @@
+<div class="container">
+  <h1>Gestion des Résultats d'Examen</h1>
+
+  <form [formGroup]="resultatExamenForm" (ngSubmit)="onSubmit()" class="form-container">
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Nom de l'examen</mat-label>
+        <input matInput type="text" formControlName="nomExamen" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Résultat</mat-label>
+        <input matInput type="text" formControlName="resultat" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Unité</mat-label>
+        <input matInput type="text" formControlName="unite" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Norme</mat-label>
+        <input matInput type="text" formControlName="norme" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Commentaire</mat-label>
+        <textarea matInput formControlName="commentaire"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Analyse</mat-label>
+        <div formGroupName="analyse">
+          <mat-select formControlName="id">
+            <mat-option *ngFor="let a of analyses" [value]="a.id">
+              {{ a.patient.nom }} {{ a.patient.prenom }} - {{ a.patient.email }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </mat-form-field> 
+    </div>
+    
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Enregistrer</button>
+      <button mat-raised-button color="secondary" type="button" (click)="resetForm()">Annuler</button>
+    </div>
+  </form>
+
+  <hr />
+  <h2>Liste des Résultats d'Examen</h2>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="resultatsExamen" class="mat-elevation-z8">
+      <ng-container matColumnDef="nomExamen">
+        <th mat-header-cell *matHeaderCellDef>Nom de l'Examen</th>
+        <td mat-cell *matCellDef="let resultat">{{ resultat.nomExamen }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateExamen">
+        <th mat-header-cell *matHeaderCellDef>Date de l'Examen</th>
+        <td mat-cell *matCellDef="let resultat">{{ resultat.dateExamen | date: 'dd/MM/yyyy' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="resultat">
+        <th mat-header-cell *matHeaderCellDef>Résultat</th>
+        <td mat-cell *matCellDef="let resultat">{{ resultat.resultat }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="unite">
+        <th mat-header-cell *matHeaderCellDef>Unité</th>
+        <td mat-cell *matCellDef="let resultat">{{ resultat.unite }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="norme">
+        <th mat-header-cell *matHeaderCellDef>Norme</th>
+        <td mat-cell *matCellDef="let resultat">{{ resultat.norme }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="commentaire">
+        <th mat-header-cell *matHeaderCellDef>Commentaire</th>
+        <td mat-cell *matCellDef="let resultat">{{ resultat.commentaire }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="analyse">
+        <th mat-header-cell *matHeaderCellDef>Analyse</th>
+        <td mat-cell *matCellDef="let resultat">
+          <ng-container *ngIf="resultat.analyse?.patient; else noPatient">
+            {{ resultat.analyse.patient.nom }} {{ resultat.analyse.patient.prenom }} - {{ resultat.analyse.patient.email }}
+          </ng-container>
+          <ng-template #noPatient>
+            Aucun patient
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let resultat">
+          <button mat-icon-button color="primary" (click)="editResultatExamen(resultat)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteResultatExamen(resultat.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['nomExamen', 'dateExamen', 'resultat', 'unite', 'norme', 'commentaire', 'analyse', 'action']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['nomExamen', 'dateExamen', 'resultat', 'unite', 'norme', 'commentaire', 'analyse', 'action']"></tr>
+    </table>
+  </div>
+</div>

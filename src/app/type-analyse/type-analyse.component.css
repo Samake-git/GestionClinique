@@ -1,0 +1,69 @@
+
+/* Style général */
+.main-container {
+    padding: 20px;
+  }
+  
+  /* Centrage du titre h2 et réduction de sa taille */
+  h2 {
+    font-size: 20px; /* Diminuer la taille du titre */
+    text-align: center; /* Centrer le titre */
+    margin-bottom: 20px; /* Espacement sous le titre */
+  }
+  
+  /* Formulaire centré avec style similaire */
+  .form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Les champs du formulaire avec une largeur maximale */
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  /* Style des boutons */
+  button {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  /* Table des départements */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: center;  /* Centrer les éléments */
+    border-bottom: 1px solid #ddd;  /* Ligne de séparation sous chaque cellule */
+  }
+  
+  /* Style de l'en-tête du tableau */
+  th {
+    background-color: #4CAF50; /* Couleur d'arrière-plan de l'en-tête */
+    color: rgb(19, 18, 18); /* Couleur du texte */
+  }
+  
+  /* Effet de survol pour les lignes du tableau */
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Conteneur du tableau avec dimension ajustée */
+  .table-container {
+    max-width: 90%;  /* Ajuster la largeur du tableau */
+    margin: 20px auto;  /* Centrer horizontalement et ajouter de l'espace autour */
+    overflow-x: auto;  /* Ajouter un défilement horizontal si nécessaire */
+  }
+  
+  .mat-elevation-z8 {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  }
+  

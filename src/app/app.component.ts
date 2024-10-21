@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { LoginEvent } from './interfaces/LoginEvent';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 @Component({
@@ -34,6 +36,8 @@ import { LoginEvent } from './interfaces/LoginEvent';
     NgIf,
     LoginComponent,
     MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
@@ -48,17 +52,17 @@ export class AppComponent {
         const url = this.router.url;
         const items = [
           'dashboard',
-          'produits',
-          'commande',
-          'livraisons',
-          'categorie',
+          'tickets',
+          'departement',
+          'consultation',
+          'prescription',
           'client',
           'payement',
           'personnel',
           'utilisateurs',
-          'stock',
+          'typeAnalyse',
           'parametres',
-          'test'
+          'motifconsultation'
         ];
         items.forEach((item) => {
           const element = this.el.nativeElement.querySelector(`#${item}Item`);

@@ -1,0 +1,95 @@
+<!-- ajouter-utilisateur.component.html -->
+
+<div class="main-container">
+  <h2>Ajouter un utilisateur</h2>
+  <form [formGroup]="utilisateurForm" (ngSubmit)="onSubmit()" class="user-form">
+      <!-- Champs pour les informations de l'utilisateur -->
+      <div class="form-group">
+          <label for="nom">Nom:</label>
+          <input id="nom" formControlName="nom" type="text" required />
+      </div>
+
+      <div class="form-group">
+          <label for="prenom">Prénom:</label>
+          <input id="prenom" formControlName="prenom" type="text" required />
+      </div>
+
+      <div class="form-group">
+          <label for="username">Username:</label>
+          <input id="username" formControlName="username" type="text" required />
+      </div>
+
+      <div class="form-group">
+          <label for="motDePasse">Mot de passe:</label>
+          <input id="motDePasse" formControlName="motDePasse" type="password" required />
+          <div *ngIf="utilisateurForm.get('motDePasse')?.invalid && utilisateurForm.get('motDePasse')?.touched">
+              <span *ngIf="utilisateurForm.get('motDePasse')?.errors?.['required']">Mot de passe est requis.</span>
+              <span *ngIf="utilisateurForm.get('motDePasse')?.errors?.['minlength']">Mot de passe doit contenir au moins 7 caractères.</span>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label for="email">Email:</label>
+          <input id="email" formControlName="email" type="email" required />
+          <div *ngIf="utilisateurForm.get('email')?.invalid && utilisateurForm.get('email')?.touched">
+              <span *ngIf="utilisateurForm.get('email')?.errors?.['required']">Email est requis.</span>
+              <span *ngIf="utilisateurForm.get('email')?.errors?.['email']">Email invalide.</span>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label for="phone">Téléphone:</label>
+          <input id="phone" formControlName="phone" type="text" required />
+      </div>
+
+      <div class="form-group">
+          <label for="sexe">Sexe:</label>
+          <select id="sexe" formControlName="sexe" required>
+              <option value="">Sélectionner</option>
+              <option value="Homme">Homme</option>
+              <option value="Femme">Femme</option>
+              <option value="AUCUN">AUCUN</option>
+          </select>
+      </div>
+
+      <div class="form-group">
+          <label for="adresse">Adresse:</label>
+          <input id="adresse" formControlName="adresse" type="text" required />
+      </div>
+
+      <div class="form-group">
+          <label for="specialite">Spécialité:</label>
+          <input id="specialite" formControlName="specialite" type="text" />
+      </div>
+
+      <!-- Sélection des rôles -->
+      <div class="form-group">
+          <label for="roleType">Rôle:</label>
+          <select id="roleType" formControlName="roleType" required>
+              <option value="">Sélectionner un rôle</option>
+              <option *ngFor="let role of roles" [value]="role.id">{{ role.nom }}</option>
+          </select>
+      </div>
+
+      <!-- Sélection des départements -->
+      <div class="form-group">
+          <label for="departement">Département:</label>
+          <select id="departement" formControlName="department" required>
+              <option value="">Sélectionner un département</option>
+              <option *ngFor="let departement of departements" [value]="departement.id">{{ departement.nom }}</option>
+          </select>
+      </div>
+
+      <!-- Upload de fichier pour les photos -->
+      <div class="form-group">
+          <label for="photos">Photo:</label>
+          <input id="photos" type="file" (change)="onFileSelected($event)" />
+      </div>
+
+      <!-- Boutons pour soumettre ou annuler -->
+      <div class="button-container">
+          <button type="submit" [disabled]="utilisateurForm.invalid">Ajouter Utilisateur</button>
+          <button type="button" (click)="onCancel()">Annuler</button>
+      </div>
+  </form>
+</div>

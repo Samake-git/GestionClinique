@@ -7,6 +7,7 @@ import { LoginEvent } from '../interfaces/LoginEvent';
 import { ReqRep } from '../interfaces/ReqRep';
 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,6 +16,8 @@ import { ReqRep } from '../interfaces/ReqRep';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+
+  
   loginForm: FormGroup;
   errorMessage: string | undefined;
 
@@ -51,5 +54,9 @@ export class LoginComponent {
         this.errorMessage = 'Erreur de connexion. Veuillez vérifier vos informations.';
         this.loginEvent.emit({ success: false, message: this.errorMessage });
       });
+
+      
+
+      
   }
 }

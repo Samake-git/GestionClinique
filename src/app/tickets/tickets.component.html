@@ -1,0 +1,69 @@
+<!-- Div principale contenant tout le contenu pour les Tickets -->
+<div class="main-container">
+  <h2>{{ isEditMode ? 'Modifier Ticket' : 'Ajouter Ticket' }}</h2>
+
+  <!-- Formulaire pour Ajouter ou Modifier un Ticket -->
+  <div class="form-container">
+    <form [formGroup]="ticketForm" (ngSubmit)="onSubmitTicket()">
+      <mat-form-field class="full-width">
+        <mat-label>Description du Ticket</mat-label>
+        <input matInput formControlName="description" placeholder="Description" required />
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Téléphone</mat-label>
+        <input matInput formControlName="tel" placeholder="Téléphone" required />
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Motif de Consultation</mat-label>
+        <mat-select formControlName="motifConsultationId" required>
+          <mat-option *ngFor="let option of motifConsultation" [value]="option.id">
+            {{ option.nom }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="button-container">
+        <!-- Bouton Ajouter ou Modifier selon l'état isEditMode -->
+        <button mat-raised-button color="primary" type="submit" *ngIf="!isEditMode">Ajouter Ticket</button>
+        <button mat-raised-button color="primary" type="submit" *ngIf="isEditMode">Modifier Ticket</button>
+
+        <!-- Bouton Annuler visible uniquement en mode édition -->
+        <button mat-raised-button color="warn" (click)="resetForm()" *ngIf="isEditMode">Annuler</button>
+      </div>
+    </form>
+  </div>
+
+  <h2>Liste des Tickets</h2>
+  <!-- Tableau des tickets -->
+  <div class="table-container">
+    <table mat-table [dataSource]="tickets" class="mat-elevation-z8">
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let ticket"> {{ ticket.description }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tel">
+        <th mat-header-cell *matHeaderCellDef> Téléphone </th>
+        <td mat-cell *matCellDef="let ticket"> {{ ticket.tel }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let ticket">
+          <button mat-icon-button color="primary" (click)="editTicket(ticket)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteTicket(ticket.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['description', 'tel', 'action']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['description', 'tel', 'action'];"></tr>
+    </table>
+  </div>
+
+</div>

@@ -1,0 +1,32 @@
+<div>
+    <h2>Créer une Prescription</h2>
+  
+    <form [formGroup]="prescriptionForm" (ngSubmit)="submitForm()">
+      <label for="patient">Sélectionner un Patient:</label>
+      <select formControlName="patientId" required>
+        <option *ngFor="let patient of patients" [value]="patient.id">{{ patient.nom }} {{ patient.prenom }}</option>
+      </select>
+  
+      <div formGroupName="prescription">
+        <label for="commentaire">Commentaire:</label>
+        <input formControlName="commentaire" placeholder="Commentaire" required />
+      </div>
+  
+      <h3>Détails de Prescription</h3>
+      <div formArrayName="details">
+        <div *ngFor="let detail of details.controls; let i = index" [formGroupName]="i">
+          <input formControlName="nomMedicament" placeholder="Nom Médicament" required />
+          <input formControlName="dosage" placeholder="Dosage" required />
+          <input formControlName="frequence" placeholder="Fréquence" required />
+          <input formControlName="duree" placeholder="Durée" required />
+          <input formControlName="instructions" placeholder="Instructions" required />
+          <input formControlName="datePremierDose" type="date" required />
+          <input formControlName="heurePremierDose" type="time" required />
+          <button type="button" (click)="removeDetail(i)">Supprimer Détail</button>
+        </div>
+      </div>
+      <button type="button" (click)="addDetail()">Ajouter Détail</button>
+  
+      <button type="submit" [disabled]="prescriptionForm.invalid">Créer Prescription</button>
+    </form>
+  </div>

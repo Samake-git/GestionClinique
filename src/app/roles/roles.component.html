@@ -1,0 +1,53 @@
+<div class="main-container">
+    <h1>Gestion des Rôles</h1>
+  
+    <form [formGroup]="roleTypeForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>Nom du rôle</mat-label>
+        <input matInput formControlName="nom" placeholder="Nom du rôle" />
+      </mat-form-field>
+  
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="roleTypeForm.invalid">
+          Enregistrer
+        </button>
+        <button mat-raised-button color="secondary" type="button" (click)="resetForm()">
+          Annuler
+        </button>
+      </div>
+    </form>
+  
+    <hr />
+  
+    <h2>Liste des Rôles</h2>
+  
+    <table mat-table [dataSource]="roleTypes" class="mat-elevation-z8">
+      <div class="table-container ">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let roleType">{{ roleType.id }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef>Nom</th>
+        <td mat-cell *matCellDef="let roleType">{{ roleType.nom }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let roleType">
+          <button mat-icon-button color="primary" (click)="editRoleType(roleType)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteRoleType(roleType.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="['id', 'nom', 'actions']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['id', 'nom', 'actions']"></tr>
+    </div>
+    </table>
+    
+  </div>

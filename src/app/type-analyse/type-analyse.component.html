@@ -1,0 +1,54 @@
+<div class="main-container">
+
+  <button mat-raised-button color="accent" (click)="goToAnalyse()">Résultats</button>
+
+    <h2>Ajouter Type d'Analyse</h2>
+  
+    <div class="form-container">
+      <form [formGroup]="typeAnalyseForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <mat-label>Nom du Type d'Analyse</mat-label>
+          <input matInput formControlName="nom" placeholder="Nom" />
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Prix</mat-label>
+          <input matInput formControlName="prix" placeholder="Prix" type="number" />
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" type="submit" *ngIf="!selectedTypeAnalyse">Ajouter</button>
+        <button mat-raised-button color="primary" (click)="onSubmit()" *ngIf="selectedTypeAnalyse">Modifier</button>
+      </form>
+    </div>
+  
+    <h2>Liste des Types d'Analyse</h2>
+  
+    <div class="table-container">
+      <table mat-table [dataSource]="typeAnalyses" class="mat-elevation-z8">
+        <ng-container matColumnDef="nom">
+          <th mat-header-cell *matHeaderCellDef>Nom</th>
+          <td mat-cell *matCellDef="let typeAnalyse">{{ typeAnalyse.nom }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="prix">
+          <th mat-header-cell *matHeaderCellDef>Prix</th>
+          <td mat-cell *matCellDef="let typeAnalyse">{{ typeAnalyse.prix }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let typeAnalyse">
+            <button mat-icon-button color="primary" (click)="editTypeAnalyse(typeAnalyse)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteTypeAnalyse(typeAnalyse.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="['nom', 'prix', 'action']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['nom', 'prix', 'action'];"></tr>
+      </table>
+    </div>
+  </div>

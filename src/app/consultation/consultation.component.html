@@ -1,0 +1,77 @@
+<div class="main-container">
+  <h2>Ajouter une Consultation</h2>
+
+  <div class="form-container">
+      <form [formGroup]="consultationForm" (ngSubmit)="onSubmit()">
+          <!-- Antécédent Field -->
+          <div class="form-group">
+              <label for="description">Antécédent:</label>
+              <textarea id="description" formControlName="description" required></textarea>
+              <div *ngIf="consultationForm.get('description')?.invalid && consultationForm.get('description')?.touched">
+                  <small class="error">La description est requise.</small>
+              </div>
+          </div>
+
+          <!-- Note Field -->
+          <div class="form-group">
+              <label for="note">Note:</label>
+              <textarea id="note" formControlName="note" required></textarea>
+              <div *ngIf="consultationForm.get('note')?.invalid && consultationForm.get('note')?.touched">
+                  <small class="error">La note est requise.</small>
+              </div>
+          </div>
+
+          <!-- Patient Selection -->
+          <div class="form-group">
+              <label for="patientId">Sélectionner Patient:</label>
+              <select id="patientId" formControlName="patientId" required>
+                  <option value="" disabled>Sélectionner un patient</option>
+                  <option *ngFor="let patient of patients" [value]="patient.id">{{ patient.nom }} {{ patient.prenom }}</option>
+              </select>
+              <div *ngIf="consultationForm.get('patientId')?.invalid && consultationForm.get('patientId')?.touched">
+                  <small class="error">Vous devez sélectionner un patient.</small>
+              </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" [disabled]="consultationForm.invalid">
+              {{ selectedConsultation ? 'Modifier Consultation' : 'Ajouter Consultation' }}
+          </button>
+      </form>
+  </div>
+
+  <h2>Liste des Consultations</h2>
+
+  <div class="table-container">
+      <table mat-table [dataSource]="consultations" class="mat-elevation-z8">
+          <!-- Description Column -->
+          <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef>Description</th>
+              <td mat-cell *matCellDef="let consultation">{{ consultation.description }}</td>
+          </ng-container>
+
+          <!-- Note Column -->
+          <ng-container matColumnDef="note">
+              <th mat-header-cell *matHeaderCellDef>Note</th>
+              <td mat-cell *matCellDef="let consultation">{{ consultation.note }}</td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let consultation">
+                  <button mat-icon-button color="primary" (click)="editConsultation(consultation)">
+                      <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteConsultation(consultation.id)">
+                      <mat-icon>delete</mat-icon>
+                  </button>
+              </td>
+          </ng-container>
+
+          <!-- Table Rows -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  </div>
+</div>

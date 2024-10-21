@@ -1,0 +1,58 @@
+.main-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-form {
+  display: grid; /* Utilisation de la grille CSS */
+  grid-template-columns: repeat(2, 1fr); /* Deux colonnes */
+  gap: 20px; /* Espace entre les éléments */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column; /* Aligne le label et le champ verticalement */
+}
+
+label {
+  font-weight: bold; /* Met en gras les labels */
+}
+
+input, select {
+  width: 90%; /* Largeur complète */
+  padding: 10px; /* Espacement interne */
+  border: 1px solid #ccc; /* Bordure */
+  border-radius: 4px; /* Coins arrondis */
+}
+
+input[type='file'] {
+  padding: 3px; /* Espacement interne réduit pour le champ de fichier */
+}
+
+.button-container {
+  grid-column: span 2; /* Les boutons s'étendent sur deux colonnes */
+  display: flex;
+  justify-content: space-between; /* Espace entre les boutons */
+}
+
+button {
+  padding: 10px 20px; /* Espacement interne des boutons */
+  background-color: #4CAF50; /* Couleur de fond */
+  color: white; /* Couleur du texte */
+  border: none; /* Pas de bordure */
+  border-radius: 4px; /* Coins arrondis */
+  cursor: pointer; /* Curseur en main sur hover */
+}
+
+button[disabled] {
+  background-color: #ccc; /* Couleur de fond pour le bouton désactivé */
+}

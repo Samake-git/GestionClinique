@@ -1,0 +1,63 @@
+<!-- Div principale contenant tout le contenu -->
+<div class="main-container scroll">
+
+    <!-- Section pour les Motifs de Consultation -->
+
+            <h2>Ajouter Motif de Consultation</h2>
+            <div class="form-container">
+          <form [formGroup]="MotifconsultationForm" (ngSubmit)="onSubmitMotif()">
+            <mat-form-field>
+              <mat-label>Le Motif</mat-label>
+              <input matInput formControlName="nom" placeholder="Nom" />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Description</mat-label>
+              <input matInput formControlName="description" placeholder="Description" />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Prix</mat-label>
+              <input matInput formControlName="prix" placeholder="Prix" type="number" />
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" *ngIf="!selectedMotifconsultation">Ajouter</button>
+            <button mat-raised-button color="primary" (click)="onSubmitMotif()" *ngIf="selectedMotifconsultation">Modifier</button>
+          </form>
+        </div>
+  
+  
+          <h2>Liste des Motifs de Consultation</h2>
+        <div class="table-container ">
+        <table mat-table [dataSource]="motifconsultations" class="mat-elevation-z8">
+          <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef> Nom </th>
+            <td mat-cell *matCellDef="let motifconsultation"> {{ motifconsultation.nom }} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let motifconsultation"> {{ motifconsultation.description }} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="prix">
+            <th mat-header-cell *matHeaderCellDef> Prix </th>
+            <td mat-cell *matCellDef="let motifconsultation"> {{ motifconsultation.prix }} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let motifconsultation">
+              <button mat-icon-button color="primary" (click)="editMotifconsultation(motifconsultation)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteMotifconsultation(motifconsultation.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="['nom', 'description', 'prix', 'action']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['nom', 'description', 'prix', 'action'];"></tr>
+        </table>
+      </div>
+  
+    </div>
+  
