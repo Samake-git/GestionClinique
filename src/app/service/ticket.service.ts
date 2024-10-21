@@ -39,4 +39,30 @@ export class TicketService {
   deleteTicket(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/supprimer/${id}`, { headers: this.getAuthHeaders() });
   }
+
+  getTicketsEnAttente(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/en-attente`, { headers: this.getAuthHeaders() });
+  }
+
+  getTicketsEnCours(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/en-cours`, { headers: this.getAuthHeaders() });
+  }
+
+  getTicketsTraites(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/traites`, { headers: this.getAuthHeaders() });
+  }
+
+  getTotalTickets(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/total`, { headers: this.getAuthHeaders() });
+  }
+
+  
+// getTicketsByCreationDate(): Observable<Map<string, number>> {
+//   return this.http.get<Map<string, number>>(`${this.baseUrl}/par-date-creation`, {headers: this.getAuthHeaders(),});
+// }
+
+  getTicketsByCreationDate(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/par-date-creation`, {headers: this.getAuthHeaders(),});
+  }
+
 }

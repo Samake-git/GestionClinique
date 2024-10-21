@@ -59,4 +59,17 @@ export class AnalyseService {
     return this.http.delete<void>(`${this.apiUrl}/supprimer/${id}`, { headers: this.getAuthHeaders() });
   }
 
+  getAnalysesEnAttente(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/en-attente`, { headers: this.getAuthHeaders() });
+  }
+
+  getAnalysesTraitees(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/traiter`, { headers: this.getAuthHeaders() });
+  }
+
+  getTotalAnalyses(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/total`, { headers: this.getAuthHeaders() });
+  }
+
 }
+
