@@ -43,7 +43,6 @@ export class LoginComponent {
         
         // Récupérer l'objet roleType complet
         const roleType = response.roleType;
-        console.log('Token JWT:', response.token);
         console.log('Rôle utilisateur complet:', roleType);
 
         // Émettre l'événement de connexion

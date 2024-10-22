@@ -1,9 +1,7 @@
-import { Department } from "./department.model";
-import { RoleType } from "./user";
 
 // utilisateur.model.ts
 export interface Utilisateur {
-  id?: number;
+  id: number;
   nom: string;
   prenom: string;
   username: string;

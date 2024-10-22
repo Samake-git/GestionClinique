@@ -1,4 +1,61 @@
 <!-- utilisateurs.component.html -->
 <button mat-button (click)="openDialog()">Ajouter Utilisateur</button>
 
+
+
 <button mat-raised-button color="accent" (click)="goToRoletype()">Gerer Roles</button>
+
+
+
+<h2>Liste des Utilisateurs</h2>
+<div class="table-container ">
+  <table mat-table [dataSource]="utilisateurs" class="mat-elevation-z8">
+    <tr mat-header-row>
+      <td>Nom</td>
+      <td>Prénom</td>
+      <td>Email</td>
+      <td>Telephone</td>
+      <td>Rôle</td>
+      <td>Actions</td>
+    </tr>
+    
+    
+    <ng-container matColumnDef="nom">
+      <td mat-cell *matCellDef="let utilisateur">{{ utilisateur.nom }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="prenom">
+      <td mat-cell *matCellDef="let utilisateur">{{ utilisateur.prenom }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <td mat-cell *matCellDef="let utilisateur">{{ utilisateur.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+        <td mat-cell *matCellDef="let utilisateur">{{ utilisateur.phone }}</td>
+      </ng-container>
+
+    <ng-container matColumnDef="roleType">
+      <td mat-cell *matCellDef="let utilisateur">
+        {{ utilisateur.roleType ? utilisateur.roleType.nom : 'Non défini' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <td mat-cell *matCellDef="let utilisateur">
+        <button mat-icon-button color="primary" (click)="editUtilisateur(utilisateur)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteUtilisateur(utilisateur.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-row *matRowDef="let row; columns: ['nom', 'prenom', 'email', 'roleType','phone', 'actions'];"></tr>
+  </table>
+
+  
+</div>
+  

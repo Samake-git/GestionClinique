@@ -4,7 +4,6 @@ import { RoleType } from '../../interfaces/user';
 import { Department } from '../../interfaces/department.model';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-import { Utilisateur } from '../../interfaces/Utilisateur';
 import { UserService } from '../../service/user.service';
 
 @Component({
@@ -20,6 +19,7 @@ export class AjouterUtilisateurComponent {
   roles: RoleType[] = [];
   departements: Department[] = [];
   selectedFile!: File;
+  isEditMode: boolean = false; // Indicateur de mode édition
 
   constructor(
     private fb: FormBuilder,
@@ -28,11 +28,25 @@ export class AjouterUtilisateurComponent {
     @Inject(MAT_DIALOG_DATA) public data: any // Pour passer des données si nécessaire
   ) {}
 
+  
   ngOnInit(): void {
+    this.getRoles(); // Appeler la fonction getRoles
+    this.getDepartements(); // Appeler la fonction getDepartements
+    this.initForm(); // Appeler la fonction initForm
+  
     this.initForm();
-    this.getRoles();
-    this.getDepartements();
+  if (this.data) {
+    this.isEditMode = true; // Changez à vrai si des données sont passées
+    // Assurez-vous que this.data contient un utilisateur valide
+    if (this.data.id) {
+      this.utilisateurForm.patchValue(this.data); // Préremplir le formulaire
+    } else {
+      console.error('Aucun ID trouvé dans les données utilisateur');
+    }
   }
+  }
+  
+ 
 
   initForm(): void {
     this.utilisateurForm = this.fb.group({
@@ -76,26 +90,32 @@ export class AjouterUtilisateurComponent {
   // Soumettre le formulaire pour ajouter un utilisateur
   onSubmit(): void {
     if (this.utilisateurForm.valid) {
-      const utilisateur: Utilisateur = this.utilisateurForm.value;
-
-      // Assurez-vous d'ajouter les IDs appropriés pour roleType et department
-      utilisateur.RoleType = { id: this.utilisateurForm.value.roleType };
-      utilisateur.Department = { id: this.utilisateurForm.value.department };
-
-      console.log('Données de l\'utilisateur avant envoi:', utilisateur);
-
-      this.utilisateurService.ajouterUtilisateur(utilisateur, this.selectedFile).subscribe(
-        (response) => {
-          console.log('Utilisateur ajouté avec succès', response);
-          console.log('Données de l\'utilisateur après envoi:', utilisateur);
-          this.utilisateurForm.reset();
-          this.dialogRef.close(); // Ferme la modale après succès
-        },
-        (error) => {
-          console.error('Erreur lors de l\'ajout de l\'utilisateur', error);
-          console.error('Données de l\'utilisateur:', utilisateur);
+      const utilisateur = this.utilisateurForm.value;
+  
+      if (this.isEditMode) {
+        // Vérifiez que l'ID est bien récupéré
+        if (this.data && this.data.id) {
+          utilisateur.id = this.data.id; // Ajoutez l'ID de l'utilisateur pour la mise à jour
+        } else {
+          console.error('Aucun ID utilisateur trouvé pour la mise à jour');
+          return; // Arrêtez l'exécution si l'ID n'est pas trouvé
         }
-      );
+  
+        this.utilisateurService.updateUser(utilisateur, this.selectedFile).subscribe(() => {
+          console.log('Utilisateur modifié avec succès');
+          this.dialogRef.close(); // Ferme la modale après succès
+        }, (error) => {
+          console.error('Erreur lors de la modification de l\'utilisateur', error);
+        });
+      } else {
+        // Traitement pour ajouter un nouvel utilisateur
+        this.utilisateurService.ajouterUtilisateur(utilisateur, this.selectedFile).subscribe(() => {
+          console.log('Utilisateur ajouté avec succès');
+          this.dialogRef.close(); // Ferme la modale après succès
+        }, (error) => {
+          console.error('Erreur lors de l\'ajout de l\'utilisateur', error);
+        });
+      }
     }
   }
 

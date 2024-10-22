@@ -66,13 +66,37 @@ export class UserService {
 
   // Récupérer tous les utilisateurs
   getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.baseUrl, { headers: this.getAuthHeaders() });
+    return this.http.get<any[]>(`${this.baseUrl}/AfficherTous`, { headers: this.getAuthHeaders() })
+    
   }
 
-  // Mettre à jour un utilisateur
-  updateUser(userId: number, userData: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/${userId}`, userData, { headers: this.getAuthHeaders() });
+  
+
+ // Mettre à jour un utilisateur (avec gestion du fichier image)
+updateUser(utilisateur: Utilisateur, file?: File): Observable<Utilisateur> {
+  const formData: FormData = new FormData();
+
+  // Ajouter les champs utilisateur au FormData
+  formData.append('nom', utilisateur.nom);
+  formData.append('prenom', utilisateur.prenom);
+  formData.append('username', utilisateur.username);
+  formData.append('motDePasse', utilisateur.motDePasse);
+  formData.append('phone', utilisateur.phone);
+  formData.append('email', utilisateur.email);
+  formData.append('sexe', utilisateur.sexe);
+  formData.append('adresse', utilisateur.adresse);
+  formData.append('specialite', utilisateur.specialite);
+  formData.append('roletypeId', utilisateur.RoleType.id.toString());
+  formData.append('departementId', utilisateur.Department.id.toString());
+
+  // Ajouter le fichier image si présent
+  if (file) {
+    formData.append('photos', file);
   }
+
+  // Envoyer la requête avec l'ID de l'utilisateur dans l'URL
+  return this.http.put<Utilisateur>(`${this.baseUrl}/modifier/${utilisateur.id}`, formData, { headers: this.getAuthHeaders() });
+}
 
   // Supprimer un utilisateur
   deleteUser(userId: number): Observable<any> {

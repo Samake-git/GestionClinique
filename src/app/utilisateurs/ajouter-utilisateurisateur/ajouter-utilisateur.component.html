@@ -88,7 +88,9 @@
 
       <!-- Boutons pour soumettre ou annuler -->
       <div class="button-container">
-          <button type="submit" [disabled]="utilisateurForm.invalid">Ajouter Utilisateur</button>
+        <button type="submit" [disabled]="utilisateurForm.invalid">
+            {{ isEditMode ? 'Modifier Utilisateur' : 'Ajouter Utilisateur' }}
+          </button>
           <button type="button" (click)="onCancel()">Annuler</button>
       </div>
   </form>
