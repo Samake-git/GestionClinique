@@ -1,0 +1,45 @@
+.ticket-details {
+    background-color: #f9f9f9; /* Fond gris clair */
+    border-radius: 8px; /* Coins arrondis */
+    padding: 20px; /* Espacement intérieur */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    max-width: 400px; /* Largeur maximale */
+    margin: 20px auto; /* Centrer le conteneur */
+    font-family: 'Arial', sans-serif; /* Police moderne */
+}
+
+h2 {
+    text-align: center; /* Centrer le titre */
+    color: #333; /* Couleur du texte */
+}
+
+.ticket-info {
+    margin-top: 15px; /* Espacement supérieur */
+}
+
+.ticket-info p {
+    margin: 10px 0; /* Espacement entre les paragraphes */
+    color: #555; /* Couleur du texte */
+}
+
+.btn {
+    display: block; /* Affichage en bloc */
+    width: 100%; /* Prendre toute la largeur */
+    padding: 10px; /* Espacement intérieur */
+    background-color: #007bff; /* Couleur du bouton */
+    color: white; /* Couleur du texte */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur pointeur */
+    transition: background-color 0.3s; /* Transition douceur */
+}
+
+.btn:hover {
+    background-color: #0056b3; /* Couleur au survol */
+}
+
+.error-message {
+    color: #e74c3c; /* Couleur rouge pour les erreurs */
+    text-align: center; /* Centrer le message d'erreur */
+    margin-top: 15px; /* Espacement supérieur */
+}

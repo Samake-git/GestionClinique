@@ -5,6 +5,9 @@ export interface Ticket {
   tel: string;
   motifConsultation: {  // Un objet avec l'ID du motif
     id: number;
+    prix: number;
+    description: string;
+    nom: string;
   };
   etat?: string;  // Optionnel : "En attente", "Pris en charge", "Traité"
   userId?: number;  // Optionnel : ID de l'utilisateur qui crée le ticket

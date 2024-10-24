@@ -16,6 +16,8 @@ import { MotifConsultation } from '../interfaces/motifconsultation.model';
 import { Ticket } from '../interfaces/ticket.model';
 import { MatNativeDateModule, MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-tickets',
@@ -52,7 +54,8 @@ export class TicketsComponent implements OnInit {
     private motifConsultationService: MotifConsultationService,
     private ticketService: TicketService,
     private snackBar: MatSnackBar,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {
     // Initialisation des formulaires
     this.motifConsultationForm = this.fb.group({
@@ -111,13 +114,20 @@ export class TicketsComponent implements OnInit {
   }
 
   createTicket(): void {
+    const selectedMotif = this.motifConsultation.find(m => m.id === this.ticketForm.value.motifConsultationId);
+  
     const ticketData: Ticket = {
       id: 0,
       description: this.ticketForm.value.description,
       tel: this.ticketForm.value.tel,
-      motifConsultation: { id: this.ticketForm.value.motifConsultationId }
+      motifConsultation: {
+        id: selectedMotif?.id || 0, // Assurez-vous d'utiliser l'ID valide
+        prix: selectedMotif?.prix || 0, // Assurez-vous d'utiliser le prix valide
+        description: selectedMotif?.description || '', // Assurez-vous d'utiliser la description valide
+        nom: selectedMotif?.nom || '' // Assurez-vous d'utiliser le nom valide
+      }
     };
-
+  
     this.ticketService.createTicket(ticketData).subscribe(
       () => {
         this.snackBar.open('Ticket ajouté avec succès', 'Fermer', {
@@ -149,20 +159,23 @@ export class TicketsComponent implements OnInit {
 
   updateTicket(): void {
     if (this.selectedTicket) {
-      // Récupérer l'utilisateur connecté à partir du service d'authentification
-
-
+      const selectedMotif = this.motifConsultation.find(m => m.id === this.ticketForm.value.motifConsultationId);
+  
       const updatedTicket: Ticket = {
         id: this.selectedTicket.id,
         description: this.ticketForm.value.description,
         tel: this.ticketForm.value.tel,
         etat: this.selectedTicket.etat || 'Attente',  // Garder l'état actuel
-        motifConsultation: { id: this.ticketForm.value.motifConsultationId },  // Utiliser l'ID de motifConsultation
-
+        motifConsultation: {
+          id: selectedMotif?.id || 0, // Assurez-vous d'utiliser l'ID valide
+          prix: selectedMotif?.prix || 0, // Assurez-vous d'utiliser le prix valide
+          description: selectedMotif?.description || '', // Assurez-vous d'utiliser la description valide
+          nom: selectedMotif?.nom || '' // Assurez-vous d'utiliser le nom valide
+        }
       };
-
+  
       console.log('Ticket à mettre à jour : ', updatedTicket);
-
+  
       this.ticketService.updateTicket(updatedTicket).subscribe(
         () => {
           this.snackBar.open('Ticket modifié avec succès', 'Fermer', {
@@ -208,6 +221,11 @@ export class TicketsComponent implements OnInit {
 
   onMotifConsultationChange(event: any): void {
     this.ticketForm.get('motifConsultationId')?.setValue(event.value);
+  }
+
+  payerTicket(ticketId: number): void {
+    // Rediriger vers le composant de paiement avec l'ID du ticket
+    this.router.navigate(['/payer-ticket', ticketId]);
   }
 
 }

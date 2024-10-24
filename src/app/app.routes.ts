@@ -11,6 +11,7 @@ import { TypeAnalyseComponent } from './type-analyse/type-analyse.component';
 import { AnalyseComponent } from './analyse/analyse.component';
 import { ResultatExamenComponent } from './resultat-examen/resultat-examen.component';
 import { RolesComponent } from './roles/roles.component';
+import { TicketpayementComponent } from './ticketpayement/ticketpayement.component';
 
 
 export const routes: Routes = [
@@ -26,6 +27,7 @@ export const routes: Routes = [
 {path: 'analyse', component: AnalyseComponent},
 {path: 'resultatExamen', component: ResultatExamenComponent},
 {path: 'role', component: RolesComponent},
+{ path: 'payer-ticket/:id', component: TicketpayementComponent},
 {path: '', redirectTo: '/login', pathMatch: 'full' },
 
 ];

@@ -1,0 +1,18 @@
+<div class="ticket-details">
+  <h2>Payer le Ticket</h2>
+
+  <div *ngIf="ticket; else noTicket" class="ticket-info">
+      <p><strong>Numéro de Ticket :</strong> {{ ticket.id }}</p>
+      <p><strong>Description :</strong> {{ ticket.description }}</p>
+      <p><strong>Numéro :</strong> {{ ticket.tel }}</p>
+      <p>
+          <strong>Montant à Payer :</strong> {{ ticket.motifConsultation.prix }} €
+      </p>
+
+      <button (click)="payerTicket()" class="btn btn-primary">Payer le Ticket</button>
+  </div>
+
+  <ng-template #noTicket>
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </ng-template>
+</div>

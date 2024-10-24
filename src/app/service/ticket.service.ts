@@ -65,4 +65,9 @@ export class TicketService {
     return this.http.get<any>(`${this.baseUrl}/par-date-creation`, {headers: this.getAuthHeaders(),});
   }
 
+   // Nouvelle méthode pour payer un ticket
+   payerTicket(ticketId: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/payer/${ticketId}`, {}, { headers: this.getAuthHeaders() });
+  }
+
 }
