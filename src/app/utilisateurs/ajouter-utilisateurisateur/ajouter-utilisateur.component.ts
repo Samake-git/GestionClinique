@@ -30,20 +30,18 @@ export class AjouterUtilisateurComponent {
 
   
   ngOnInit(): void {
-    this.getRoles(); // Appeler la fonction getRoles
-    this.getDepartements(); // Appeler la fonction getDepartements
-    this.initForm(); // Appeler la fonction initForm
-  
     this.initForm();
-  if (this.data) {
-    this.isEditMode = true; // Changez à vrai si des données sont passées
-    // Assurez-vous que this.data contient un utilisateur valide
+    this.getRoles();
+    this.getDepartements();
+
+
     if (this.data.id) {
+      this.isEditMode = true;
       this.utilisateurForm.patchValue(this.data); // Préremplir le formulaire
     } else {
       console.error('Aucun ID trouvé dans les données utilisateur');
     }
-  }
+  
   }
   
  
@@ -92,33 +90,51 @@ export class AjouterUtilisateurComponent {
     if (this.utilisateurForm.valid) {
       const utilisateur = this.utilisateurForm.value;
   
+      // Assurez-vous d'ajouter les IDs appropriés pour roleType et department
+      utilisateur.RoleType = { id: this.utilisateurForm.value.roleType };
+      utilisateur.Department = { id: this.utilisateurForm.value.department };
+  
+      console.log('Données de l\'utilisateur avant envoi:', utilisateur);
+  
       if (this.isEditMode) {
-        // Vérifiez que l'ID est bien récupéré
+        // En mode modification, ajoutez l'ID de l'utilisateur
         if (this.data && this.data.id) {
-          utilisateur.id = this.data.id; // Ajoutez l'ID de l'utilisateur pour la mise à jour
+          utilisateur.id = this.data.id; // Ajoutez l'ID pour la mise à jour
         } else {
           console.error('Aucun ID utilisateur trouvé pour la mise à jour');
           return; // Arrêtez l'exécution si l'ID n'est pas trouvé
         }
-  
-        this.utilisateurService.updateUser(utilisateur, this.selectedFile).subscribe(() => {
-          console.log('Utilisateur modifié avec succès');
-          this.dialogRef.close(); // Ferme la modale après succès
-        }, (error) => {
-          console.error('Erreur lors de la modification de l\'utilisateur', error);
-        });
+        
+        // Appel à la méthode de modification
+        this.utilisateurService.updateUser(utilisateur, this.selectedFile).subscribe(
+          (response) => {
+            console.log('Utilisateur modifié avec succès', response);
+            console.log('Données de l\'utilisateur après mise à jour:', utilisateur);
+            this.utilisateurForm.reset();
+            this.dialogRef.close(); // Ferme la modale après succès
+          },
+          (error) => {
+            console.error('Erreur lors de la modification de l\'utilisateur', error);
+            console.error('Données de l\'utilisateur:', utilisateur);
+          }
+        );
       } else {
-        // Traitement pour ajouter un nouvel utilisateur
-        this.utilisateurService.ajouterUtilisateur(utilisateur, this.selectedFile).subscribe(() => {
-          console.log('Utilisateur ajouté avec succès');
-          this.dialogRef.close(); // Ferme la modale après succès
-        }, (error) => {
-          console.error('Erreur lors de l\'ajout de l\'utilisateur', error);
-        });
+        // En mode ajout, appelez la méthode d'ajout
+        this.utilisateurService.ajouterUtilisateur(utilisateur, this.selectedFile).subscribe(
+          (response) => {
+            console.log('Utilisateur ajouté avec succès', response);
+            console.log('Données de l\'utilisateur après ajout:', utilisateur);
+            this.utilisateurForm.reset();
+            this.dialogRef.close(); // Ferme la modale après succès
+          },
+          (error) => {
+            console.error('Erreur lors de l\'ajout de l\'utilisateur', error);
+            console.error('Données de l\'utilisateur:', utilisateur);
+          }
+        );
       }
     }
   }
-
 
   onCancel(): void {
     this.dialogRef.close(); // Ferme la modale en cas d'annulation
