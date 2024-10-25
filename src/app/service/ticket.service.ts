@@ -56,10 +56,9 @@ export class TicketService {
     return this.http.get<number>(`${this.baseUrl}/total`, { headers: this.getAuthHeaders() });
   }
 
-  
-// getTicketsByCreationDate(): Observable<Map<string, number>> {
-//   return this.http.get<Map<string, number>>(`${this.baseUrl}/par-date-creation`, {headers: this.getAuthHeaders(),});
-// }
+  getTotalPatients(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/Patient_total`, { headers: this.getAuthHeaders() });
+  }
 
   getTicketsByCreationDate(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/par-date-creation`, {headers: this.getAuthHeaders(),});

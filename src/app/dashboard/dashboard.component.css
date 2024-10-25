@@ -90,4 +90,14 @@
   font-weight: bold;
   margin-top: 20px;
 }
+
+.mat-icon-button {
+  border: none; /* Enlève toute bordure */
+  box-shadow: none; /* Enlève l'ombre si présente */
+  padding: 0; /* Enlève le rembourrage pour un affichage compact */
+}
+
+.mat-icon-button:hover {
+  background-color: transparent; /* Aucun fond lors du survol */
+}
   

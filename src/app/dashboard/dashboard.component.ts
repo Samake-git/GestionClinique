@@ -6,6 +6,8 @@ import { MatIcon } from '@angular/material/icon';
 import { Ticket } from '../interfaces/ticket.model';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,8 +23,9 @@ export class DashboardComponent implements OnInit {
   tickets: Ticket[] = []; 
 
    // Propriétés pour les valeurs affichées dans les cartes
+   totalAnalyses: number = 0; 
    totalTickets: number = 0;
-   totalPatients: number = 200; // Donnée temporaire pour le moment
+   totalPatients: number = 0; 
    budget: number = 10000; // Donnée temporaire
 
   // Données pour le graphique doughnut
@@ -35,7 +38,7 @@ export class DashboardComponent implements OnInit {
   public lineChartData: number[] = []; // Représente les valeurs des tickets
   public lineChartLabels: string[] = []; // Représente les dates
   
-  constructor(private ticketService: TicketService) {
+  constructor(private ticketService: TicketService, private router: Router, private authService: AuthService) {
 
 
      // Configuration des options du graphique doughnut
@@ -71,6 +74,7 @@ export class DashboardComponent implements OnInit {
     this.loadTicketStates();
     this.loadTotalTickets();
     this.loadTickets();
+    this.loadTotalPatients()
   }
 
   // Charger les tickets par date et mettre à jour le graphique
@@ -130,6 +134,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+
+    // Charger le total des tickets depuis l'API
+    loadTotalPatients() {
+      this.ticketService.getTotalPatients().subscribe((total: number) => {
+        this.totalPatients = total;
+      }, error => {
+        console.error("Erreur lors du chargement du total des tickets : ", error);
+      });
+    }
+
+
   // Charger la liste des tickets
 
   loadTickets(): void {
@@ -141,6 +156,37 @@ export class DashboardComponent implements OnInit {
         console.error('Erreur lors de la récupération des tickets', error);
       }
     );
+  }
+
+  goToListeAnalyse() {
+    this.router.navigate(['/liste-analyse']); // Remplacez '/liste-analyse' par le bon chemin de votre route
+  }
+
+   // Méthodes pour gérer les actions des tickets
+   prendreEnCharge(ticket: Ticket) {
+    // Logique pour prendre en charge le ticket
+    console.log('Prendre en charge:', ticket);
+  }
+
+  traiter(ticket: Ticket) {
+    // Logique pour traiter le ticket
+    console.log('Traiter:', ticket);
+  }
+
+  isAdmin(): boolean {
+    return this.authService.isUserAdmin();
+  }
+  
+  isMedecin(): boolean {
+    return this.authService.isUserMedecin();
+  }
+
+  isReceptionniste (): boolean{
+    return this.authService.isUserReceptionniste();
+  }
+
+  isLaborantin   (): boolean {
+    return this.authService.isUserLaborantin();
   }
 
 

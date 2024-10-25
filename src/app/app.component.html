@@ -67,7 +67,7 @@
                <span>Dashboard</span>
               </button>
             </mat-list-item>
-            <mat-list-item class="mat-list-item active" id="produitsItem" routerLink="tickets" routerLinkActive="active">
+            <mat-list-item *ngIf="isReceptionniste()" class="mat-list-item active" id="produitsItem" routerLink="tickets" routerLinkActive="active">
               <button class="btn_menu" mat-button>
                 <mat-icon style="color: #ee4d2d">assignment</mat-icon>
                 <span>Tickets</span>
@@ -79,18 +79,33 @@
                 <span>Motif de Consultation</span>
               </button>
             </mat-list-item>
-            <mat-list-item class="mat-list-item active" id="commandeItem" routerLink="departement" routerLinkActive="active">
+            <mat-list-item *ngIf="isAdmin()" class="mat-list-item active" id="commandeItem" routerLink="departement" routerLinkActive="active">
               <button class="btn_menu" mat-button>
                 <mat-icon style="color: #ee4d2d">account_balance</mat-icon>
               <span>Departement</span>
               </button>
             </mat-list-item>
-            <mat-list-item class="mat-list-item active" id="livraisonsItem" routerLink="consultation" routerLinkActive="active">
+            <mat-list-item *ngIf="isMedecin()" class="mat-list-item active" id="livraisonsItem" routerLink="consultation" routerLinkActive="active">
               <button class="btn_menu" mat-button>
                 <mat-icon style="color: #ee4d2d">local_shipping</mat-icon>
                 <span>Consultations</span>
               </button>
             </mat-list-item>
+
+            <mat-list-item class="mat-list-item active" id="livraisonsItem" routerLink="analyse" routerLinkActive="active">
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">list_alt</mat-icon>
+                <span>Analyses</span>
+              </button>
+            </mat-list-item>
+
+            <mat-list-item class="mat-list-item active" id="livraisonsItem" routerLink="resultatExamen" routerLinkActive="active">
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">list_alt</mat-icon>
+                <span>Resultats Analyses</span>
+              </button>
+            </mat-list-item>
+
             <mat-list-item class="mat-list-item active" id="categorieItem" routerLink="categorie" routerLinkActive="active">
               <button class="btn_menu" mat-button>
                 <mat-icon style="color: #ee4d2d">category</mat-icon>
@@ -110,14 +125,15 @@
                 <span>Payements</span>
               </button>
             </mat-list-item>
+            
 
-            <mat-list-item class="mat-list-item active" id="personnelItem" routerLink="utilisateurs" routerLinkActive="active">
+            <mat-list-item *ngIf="isAdmin()" class="mat-list-item active" id="personnelItem" routerLink="utilisateurs" routerLinkActive="active">
               <button class="btn_menu" mat-button>
                 <mat-icon style="color: #ee4d2d">supervisor_account</mat-icon>
                 <span>Personnels</span>
               </button>
             </mat-list-item>
-            <mat-list-item class="mat-list-item active" id="utilisateursItem" routerLink="prescription" routerLinkActive="active">
+            <mat-list-item *ngIf="isMedecin()" class="mat-list-item active" id="utilisateursItem" routerLink="prescription" routerLinkActive="active">
               <button class="btn_menu" mat-button>
                 <mat-icon style="color: #ee4d2d">group_add</mat-icon>
                <span> Prescription</span>

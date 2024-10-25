@@ -177,4 +177,8 @@ export class AnalyseComponent {
     this.router.navigate(['/resultatExamen']);
   }
 
+  payement(){
+    this.router.navigate(['/listeAnalyse'])
+  }
+
 }

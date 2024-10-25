@@ -17,6 +17,10 @@ export class AnalyseService {
   private apiUrl = 'http://localhost:8080/api/laborantin/analyses';
   private baseUrl1 = 'http://localhost:8080/api/medecin/patients/afficherTous'
 
+  private apiUrl1 = 'http://localhost:8080/api/ medecin/analyses';
+
+ 
+
   constructor(private http: HttpClient) {}
 
 
@@ -40,23 +44,23 @@ export class AnalyseService {
   }
 
   createAnalyse(analyse: Analyse): Observable<Analyse> {
-    return this.http.post<Analyse>(`${this.apiUrl}/ajouter`, analyse, { headers: this.getAuthHeaders() });
+    return this.http.post<Analyse>(`${this.apiUrl1}/ajouter`, analyse, { headers: this.getAuthHeaders() });
   }
 
   getAllAnalyses(): Observable<Analyse[]> {
-    return this.http.get<Analyse[]>(`${this.apiUrl}/afficherTous`, { headers: this.getAuthHeaders() });
+    return this.http.get<Analyse[]>(`${this.apiUrl1}/afficherTous`, { headers: this.getAuthHeaders() });
   }
 
   getAnalyseById(id: number): Observable<Analyse> {
-    return this.http.get<Analyse>(`${this.apiUrl}/afficher/${id}`, { headers: this.getAuthHeaders() });
+    return this.http.get<Analyse>(`${this.apiUrl1}/afficher/${id}`, { headers: this.getAuthHeaders() });
   }
 
   updateAnalyse(id: number, analyse: Analyse): Observable<Analyse> {
-    return this.http.put<Analyse>(`${this.apiUrl}/modifier/${id}`, analyse, { headers: this.getAuthHeaders() });
+    return this.http.put<Analyse>(`${this.apiUrl1}/modifier/${id}`, analyse, { headers: this.getAuthHeaders() });
   }
 
   deleteAnalyse(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/supprimer/${id}`, { headers: this.getAuthHeaders() });
+    return this.http.delete<void>(`${this.apiUrl1}/supprimer/${id}`, { headers: this.getAuthHeaders() });
   }
 
   getAnalysesEnAttente(): Observable<number> {
@@ -70,6 +74,11 @@ export class AnalyseService {
   getTotalAnalyses(): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/total`, { headers: this.getAuthHeaders() });
   }
+
+    // Nouvelle méthode pour payer une analyse
+    payerAnalyse(analyseId: number): Observable<any> {
+      return this.http.post<any>(`${this.apiUrl}/payer/${analyseId}`, {}, { headers: this.getAuthHeaders() });
+    }
 
 }
 

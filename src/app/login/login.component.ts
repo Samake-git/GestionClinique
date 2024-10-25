@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { LoginEvent } from '../interfaces/LoginEvent';
 import { ReqRep } from '../interfaces/ReqRep';
+import { RoleType } from '../interfaces/user';
 
 
 
@@ -41,9 +42,11 @@ export class LoginComponent {
       .subscribe(response => {
         localStorage.setItem('jwt', response.token);
         
-        // Récupérer l'objet roleType complet
-        const roleType = response.roleType;
-        console.log('Rôle utilisateur complet:', roleType);
+          // Récupérer et stocker le rôle dans le localStorage
+      const roleType: RoleType = response.roleType; // Assurez-vous que response.roleType est de type RoleType
+      localStorage.setItem('userRole', JSON.stringify(roleType)); // Convertir en JSON
+
+      console.log('Rôle utilisateur complet:', roleType);
 
         // Émettre l'événement de connexion
         this.loginEvent.emit({ success: true, message: response.message });

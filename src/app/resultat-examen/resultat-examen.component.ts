@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { ConsultationService } from '../service/consultation.service';
 import { MatOption } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-resultat-examen',
@@ -42,7 +43,8 @@ export class ResultatExamenComponent implements OnInit {
     private formBuilder: FormBuilder,
     private resultatExamenService: ResultatExamenService,
     private analyseService: AnalyseService,
-    private consultationService: ConsultationService
+    private consultationService: ConsultationService,
+    private authService: AuthService
   ) {
     this.resultatExamenForm = this.formBuilder.group({
       id: [0],
@@ -154,6 +156,23 @@ export class ResultatExamenComponent implements OnInit {
 
   get analyse(): FormArray {
     return this.resultatExamenForm.get('analyse') as FormArray;
+  }
+
+
+  isAdmin(): boolean {
+    return this.authService.isUserAdmin();
+  }
+  
+  isMedecin(): boolean {
+    return this.authService.isUserMedecin();
+  }
+
+  isReceptionniste (): boolean{
+    return this.authService.isUserReceptionniste();
+  }
+
+  isLaborantin   (): boolean {
+    return this.authService.isUserLaborantin();
   }
 
 }

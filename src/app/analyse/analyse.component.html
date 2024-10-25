@@ -1,8 +1,6 @@
 <div class="main-container">
 
 
-  <button mat-raised-button color="accent" (click)="goToResultat()">Résultats</button>
-
     <h2>Ajouter Analyse</h2>
   
     <div class="form-container">
@@ -11,13 +9,6 @@
           <mat-label>Appareil Utilisé</mat-label>
           <input matInput formControlName="appareilUtilise" placeholder="Appareil" />
         </mat-form-field>
-  
-        <!-- <mat-form-field>
-          <mat-label>Date Analyse</mat-label>
-          <input matInput [matDatepicker]="datePicker" formControlName="dateAnalyse" />
-          <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-          <mat-datepicker #datePicker></mat-datepicker>
-        </mat-form-field> -->
   
         <mat-form-field>
           <mat-label>Type d'Analyse</mat-label>
@@ -84,6 +75,11 @@
             <button mat-icon-button color="warn" (click)="deleteAnalyse(analyse.id)">
               <mat-icon>delete</mat-icon>
             </button>
+
+            <button mat-icon-button color="accent" (click)="payement()">
+              <mat-icon>payment</mat-icon>
+          </button>
+
           </td>
         </ng-container>
   

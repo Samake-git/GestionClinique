@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginEvent } from './interfaces/LoginEvent';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { AuthService } from './service/auth.service';
 
 
 @Component({
@@ -46,7 +47,7 @@ export class AppComponent {
   title = 'clinic-management';
   logIN: boolean = false; // Initialiser à false
 
-  constructor(private router: Router, private el: ElementRef) {
+  constructor(private router: Router, private el: ElementRef, private authService: AuthService) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const url = this.router.url;
@@ -96,4 +97,23 @@ export class AppComponent {
       console.error('Échec de la connexion:', event.message);
     }
   }
+
+
+  isAdmin(): boolean {
+    return this.authService.isUserAdmin();
+  }
+  
+  isMedecin(): boolean {
+    return this.authService.isUserMedecin();
+  }
+
+  isReceptionniste (): boolean{
+    return this.authService.isUserReceptionniste();
+  }
+
+  isLaborantin   (): boolean {
+    return this.authService.isUserLaborantin();
+  }
+
+
 }

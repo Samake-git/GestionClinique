@@ -1,7 +1,7 @@
 <div class="container">
-  <h1>Gestion des Résultats d'Examen</h1>
+  <h1  *ngIf="isLaborantin()">Gestion des Résultats d'Examen</h1>
 
-  <form [formGroup]="resultatExamenForm" (ngSubmit)="onSubmit()" class="form-container">
+  <form *ngIf="isLaborantin()" [formGroup]="resultatExamenForm" (ngSubmit)="onSubmit()" class="form-container">
     <div class="form-group">
       <mat-form-field>
         <mat-label>Nom de l'examen</mat-label>

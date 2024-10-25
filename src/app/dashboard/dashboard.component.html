@@ -21,7 +21,7 @@
           <mat-icon style="color: #ee4d2d">people</mat-icon> <!-- Icône Patients -->
         </div>
         <div class="card-title">Total Patients</div>
-        <div class="card-value">200</div> <!-- Données temporaires -->
+        <div class="card-value">{{totalPatients}}</div> <!-- Données temporaires -->
       </div>
 
       <!-- Card 3: Total Tickets -->
@@ -32,6 +32,17 @@
         <div class="card-title">Total Tickets</div>
         <div class="card-value">{{ totalTickets }}</div> <!-- Données provenant du service -->
       </div>
+
+       <!-- Card 4: Liste Analyse 
+       <div class="card custom-card" (click)="goToListeAnalyse()" style="cursor: pointer;">
+        <div class="card-icon">
+          <mat-icon style="color: #ee4d2d">list_alt</mat-icon>
+         </div>
+        <div class="card-title">Liste Analyses</div>
+        <div class="card-value">{{ totalAnalyses }}</div> 
+      </div> --> 
+
+
     </div>
 
 
@@ -65,8 +76,23 @@
           <td mat-cell *matCellDef="let ticket"> {{ ticket.etat }} </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="['description', 'tel', 'etat']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['description', 'tel', 'etat'];"></tr>
+         <!-- Colonne Actions -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let ticket">
+            <div *ngIf="isMedecin()">
+              <button mat-icon-button (click)="prendreEnCharge(ticket)" aria-label="Prendre en charge">
+                <mat-icon color="primary">assignment_turned_in</mat-icon>
+              </button>
+              <button mat-icon-button (click)="traiter(ticket)" aria-label="Traiter">
+                <mat-icon color="accent">check_circle</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['description', 'tel', 'etat', 'actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['description', 'tel', 'etat', 'actions'];"></tr>
       </table>
     </div>
 
