@@ -159,7 +159,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goToListeAnalyse() {
-    this.router.navigate(['/liste-analyse']); // Remplacez '/liste-analyse' par le bon chemin de votre route
+    this.router.navigate(['/analyse']); // Remplacez '/liste-analyse' par le bon chemin de votre route
   }
 
    // Méthodes pour gérer les actions des tickets

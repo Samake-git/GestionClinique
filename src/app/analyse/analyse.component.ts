@@ -18,6 +18,7 @@ import { AnalyseService } from '../service/analyse.service';
 import { CategorieAnalyseService } from '../service/categorieAnalyse.service';
 import { TypeAnalyseService } from '../service/type-analyse.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-analyse',
@@ -52,7 +53,8 @@ export class AnalyseComponent {
     private analyseService: AnalyseService,
     private typeAnalyseService: TypeAnalyseService,
     private categorieAnalyseService: CategorieAnalyseService,
-    private router: Router 
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.analyseForm = this.formBuilder.group({
       id: [0],
@@ -177,8 +179,22 @@ export class AnalyseComponent {
     this.router.navigate(['/resultatExamen']);
   }
 
-  payement(){
-    this.router.navigate(['/listeAnalyse'])
+  payement(analyse: Analyse) {
+    this.analyseService.payerAnalyse(analyse.id).subscribe(
+      response => {
+        console.log('Paiement effectué avec succès:', response);
+        this.snackBar.open('Paiement effectué avec succès !', 'Fermer', {
+          duration: 3000, // Durée d'affichage en millisecondes
+        });
+        this.router.navigate(['/recuAnalyse', analyse.id]); // Rediriger vers la page de reçu
+      },
+      error => {
+        console.error('Erreur lors du paiement de l\'analyse:', error);
+        this.snackBar.open('Erreur lors du paiement. Veuillez réessayer.', 'Fermer', {
+          duration: 3000,
+        });
+      }
+    );
   }
 
 }

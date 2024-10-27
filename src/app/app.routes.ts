@@ -15,6 +15,8 @@ import { TicketpayementComponent } from './ticketpayement/ticketpayement.compone
 import { PrescriptionDetailComponent } from './prescription-detail/prescription-detail.component';
 import { EmploisDuTempsComponent } from './emplois-du-temps/emplois-du-temps.component';
 import { RecupayementComponent } from './recupayement/recupayement.component';
+import { AnalyseListeComponent } from './analyse-liste/analyse-liste.component';
+import { RecuAnalyseComponent } from './recu-analyse/recu-analyse.component';
 
 
 
@@ -36,6 +38,7 @@ export const routes: Routes = [
 {path: 'payer-ticket/:id', component: TicketpayementComponent},
 {path: 'emplois', component: EmploisDuTempsComponent},
 {path: 'recu/:id', component: RecupayementComponent},
+{path: 'recuAnalyse/:id', component: RecuAnalyseComponent},
 {path: '', redirectTo: '/login', pathMatch: 'full' },
 
 ];

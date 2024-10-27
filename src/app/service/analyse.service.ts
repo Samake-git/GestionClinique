@@ -17,7 +17,9 @@ export class AnalyseService {
   private apiUrl = 'http://localhost:8080/api/laborantin/analyses';
   private baseUrl1 = 'http://localhost:8080/api/medecin/patients/afficherTous'
 
-  private apiUrl1 = 'http://localhost:8080/api/ medecin/analyses';
+  private apiUrl1 = 'http://localhost:8080/api/medecin/analyses';
+
+  private apiUrl2 = 'http://localhost:8080/api/receptionniste/analyse';
 
  
 
@@ -77,7 +79,7 @@ export class AnalyseService {
 
     // Nouvelle méthode pour payer une analyse
     payerAnalyse(analyseId: number): Observable<any> {
-      return this.http.post<any>(`${this.apiUrl}/payer/${analyseId}`, {}, { headers: this.getAuthHeaders() });
+      return this.http.post<any>(`${this.apiUrl2}/payer/${analyseId}`, {}, { headers: this.getAuthHeaders() });
     }
 
 }
