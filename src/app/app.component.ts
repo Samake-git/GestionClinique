@@ -63,7 +63,8 @@ export class AppComponent {
           'utilisateurs',
           'typeAnalyse',
           'parametres',
-          'motifconsultation'
+          'motifconsultation',
+          'emplois'
         ];
         items.forEach((item) => {
           const element = this.el.nativeElement.querySelector(`#${item}Item`);

@@ -1,0 +1,58 @@
+<div class="ordonnance-details">
+  <h1>Ordonnance</h1>
+
+  <h3>Informations du Patient</h3>
+  <table>
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Âge</th>
+      <th>Poids</th>
+      <th>Tel</th>
+      <th>Adresse</th>
+      <th>Sexe</th>
+      <th>Ethnie</th>
+    </tr>
+    <tr>
+      <td>{{ prescription.patient?.nom }}</td>
+      <td>{{ prescription.patient?.prenom }}</td>
+      <td>{{ prescription.patient?.age }}</td>
+      <td>{{ prescription.patient?.poids }}</td>
+      <td>{{ prescription.patient?.phone }}</td>
+      <td>{{ prescription.patient?.adresse }}</td>
+      <td>{{ prescription.patient?.sexe }}</td>
+      <td>{{ prescription.patient?.ethnie }}</td>
+    </tr>
+  </table>
+
+  <h3>Informations du Prescripteur</h3>
+  <table>
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Spécialité</th>
+      <th>Tel</th>
+    </tr>
+    <tr>
+      <td>{{ prescription.medecin?.nom }}</td>
+      <td>{{ prescription.medecin?.prenom }}</td>
+      <td>{{ prescription.medecin?.specialite }}</td>
+      <td>{{ prescription.medecin?.phone }}</td>
+    </tr>
+  </table>
+
+  <h5>Commentaire: {{ prescription.commentaire }}</h5>
+  <h5>Date de Prescription: {{ prescription.datePrescription }}</h5>
+
+  <h3>Détails de la Prescription:</h3>
+  <ul>
+    <li *ngFor="let detail of prescriptionDetails">
+      {{ detail.nomMedicament }} - {{ detail.dosage }} - {{ detail.frequence }} - {{ detail.duree }} - {{ detail.instructions }}
+    </li>
+  </ul>
+
+  <div class="buttons">
+    <button mat-button (click)="printOrdonnance()">Imprimer</button>
+    <button mat-button (click)="downloadOrdonnance()">Télécharger</button>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+.ordonnance-details {
+    max-height: 70vh; /* Limite la hauteur pour permettre le défilement */
+    overflow-y: auto; /* Active le défilement vertical */
+    padding: 20px; /* Espacement intérieur */
+    border-radius: 8px; /* Coins arrondis */
+    background-color: #f2f9fc; /* Couleur de fond douce */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre pour profondeur */
+  }
+  
+  h1 {
+    text-align: center; /* Centrer le titre */
+    color: #2c3e50; /* Couleur sombre pour le titre */
+    font-size: 24px; /* Taille de police pour le titre */
+  }
+  
+  h3 {
+    margin-top: 20px; /* Espacement au-dessus des sous-titres */
+    color: #2980b9; /* Couleur pour les sous-titres */
+    font-size: 20px; /* Taille pour les sous-titres */
+  }
+  
+  table {
+    width: 100%; /* Prendre toute la largeur */
+    border-collapse: collapse; /* Supprimer les espaces entre les cellules */
+    margin-bottom: 20px; /* Espacement inférieur */
+  }
+  
+  th, td {
+    padding: 10px; /* Espacement interne des cellules */
+    text-align: left; /* Alignement à gauche */
+    border: 1px solid #ddd; /* Bordure légère */
+  }
+  
+  th {
+    background-color: #3498db; /* Couleur de fond pour les en-têtes */
+    color: white; /* Couleur du texte pour les en-têtes */
+  }
+  
+  h5 {
+    margin: 8px 0; /* Espacement entre les lignes */
+    color: #34495e; /* Couleur légèrement plus claire */
+    font-size: 16px; /* Taille de police pour les informations */
+  }
+  
+  ul {
+    list-style-type: none; /* Supprimer les puces */
+    padding: 0; /* Supprimer le remplissage par défaut */
+  }
+  
+  li {
+    padding: 8px; /* Espacement intérieur pour chaque ligne */
+    border-bottom: 1px solid #ddd; /* Ligne de séparation */
+    font-size: 14px; /* Taille de police pour les détails de prescription */
+  }
+  
+  li:last-child {
+    border-bottom: none; /* Pas de ligne pour le dernier élément */
+  }
+  
+  .buttons {
+    display: flex; /* Utiliser le flexbox pour aligner les boutons */
+    justify-content: space-between; /* Espacer les boutons */
+    margin-top: 20px; /* Espacement au-dessus des boutons */
+  }
+  
+  button {
+    padding: 10px 15px; /* Espacement intérieur des boutons */
+    font-size: 14px; /* Taille de police des boutons */
+    border-radius: 5px; /* Coins arrondis pour les boutons */
+    background-color: #3498db; /* Couleur de fond des boutons */
+    color: white; /* Couleur du texte des boutons */
+    border: none; /* Supprimer la bordure par défaut */
+    cursor: pointer; /* Curseur de pointeur pour indiquer l'interaction */
+    transition: background-color 0.3s; /* Animation de transition */
+  }
+  
+  button:hover {
+    background-color: #2980b9; /* Couleur lors du survol */
+  }

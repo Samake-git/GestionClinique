@@ -1,0 +1,75 @@
+
+<div *ngIf="confirmationMessage" class="alert alert-success">
+  {{ confirmationMessage }}
+</div>
+
+<!-- Section pour les Emplois du Temps -->
+<div class="ticket-container">
+  <h2>{{ isEditing ? 'Modifier Emploi du Temps' : 'Ajouter Emploi du Temps' }}</h2>
+  <div class="form-container">
+    <form [formGroup]="emploiForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <mat-form-field class="flex-item">
+          <mat-label>Jour</mat-label>
+          <input matInput formControlName="jour" placeholder="Jour" type="date" required />
+          <mat-error *ngIf="emploiForm.get('jour')?.hasError('required')">
+            Le jour est requis.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-item">
+          <mat-label>Heure de Début</mat-label>
+          <input matInput formControlName="heureDebut" placeholder="Heure de Début" type="time" required />
+          <mat-error *ngIf="emploiForm.get('heureDebut')?.hasError('required')">
+            L'heure de début est requise.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-item">
+          <mat-label>Heure de Fin</mat-label>
+          <input matInput formControlName="heureFin" placeholder="Heure de Fin" type="time" required />
+          <mat-error *ngIf="emploiForm.get('heureFin')?.hasError('required')">
+            L'heure de fin est requise.
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">{{ isEditing ? 'Modifier' : 'Ajouter' }}</button>
+      </div>
+    </form>
+  </div>
+
+  <h2>Liste des Emplois du Temps</h2>
+  <div class="table-container">
+    <table mat-table [dataSource]="emploisDuTemps" class="mat-elevation-z8">
+      <ng-container matColumnDef="jour">
+        <th mat-header-cell *matHeaderCellDef> Jour </th>
+        <td mat-cell *matCellDef="let emploi"> {{ emploi.jour }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="heureDebut">
+        <th mat-header-cell *matHeaderCellDef> Heure de Début </th>
+        <td mat-cell *matCellDef="let emploi"> {{ emploi.heureDebut }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="heureFin">
+        <th mat-header-cell *matHeaderCellDef> Heure de Fin </th>
+        <td mat-cell *matCellDef="let emploi"> {{ emploi.heureFin }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let emploi">
+          <button mat-icon-button color="primary" (click)="openEdit(emploi)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteEmploiDuTemps(emploi.id!)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['jour', 'heureDebut', 'heureFin', 'action']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['jour', 'heureDebut', 'heureFin', 'action'];"></tr>
+    </table>
+  </div>
+</div>

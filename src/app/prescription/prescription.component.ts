@@ -10,6 +10,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { Prescription, PrescriptionDetail } from '../interfaces/prescription.model';
+import { OrdonnanceDialogComponent } from '../ordonnance-dialog/ordonnance-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-prescription',
@@ -28,77 +32,111 @@ import { MatTableModule } from '@angular/material/table';
 })
 export class PrescriptionComponent implements OnInit {
   prescriptionForm: FormGroup;
-  patients: Patient[] = []; 
+  patients: Patient[] = [];
+  prescriptions: Prescription[] = [];
+  selectedPrescription?: Prescription; // Pour stocker l'ordonnance sélectionnée
+  prescriptionDetails: PrescriptionDetail[] = []; // Détails de l'ordonnance
 
   constructor(
     private fb: FormBuilder,
-    private prescriptionService: PrescriptionService, 
+    private prescriptionService: PrescriptionService,
+    private router: Router,
+    private dialog: MatDialog
   ) {
     this.prescriptionForm = this.fb.group({
       patientId: ['', Validators.required],
       prescription: this.fb.group({
         commentaire: ['', Validators.required],
       }),
-      details: this.fb.array([]),
     });
   }
 
   ngOnInit(): void {
     this.loadPatients();
+    this.loadPrescriptions();
   }
 
   loadPatients() {
-    console.log('Chargement des patients...');
     this.prescriptionService.getAllPatients().subscribe({
       next: (data) => {
-        console.log('Patients récupérés:', data);
         this.patients = data;
-        console.log(this.patients);
       },
       error: (error) => {
         console.error('Erreur lors du chargement des patients:', error);
-      }
+      },
     });
   }
 
-  get details(): FormArray {
-    return this.prescriptionForm.get('details') as FormArray;
-  }
-
-  addDetail() {
-    const detailGroup = this.fb.group({
-      nomMedicament: ['', Validators.required],
-      dosage: ['', Validators.required],
-      frequence: ['', Validators.required],
-      duree: ['', Validators.required],
-      instructions: ['', Validators.required],
-      datePremierDose: ['', Validators.required],
-      heurePremierDose: ['', Validators.required],
+  loadPrescriptions() {
+    this.prescriptionService.getAllPrescriptions().subscribe({
+      next: (data) => {
+        this.prescriptions = data;
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des prescriptions:', error);
+      },
     });
-    this.details.push(detailGroup);
   }
 
-  removeDetail(index: number) {
-    this.details.removeAt(index);
+
+submitForm() {
+  if (this.prescriptionForm.valid) {
+    const formData = this.prescriptionForm.value;
+    const payload = {
+      patient: { id: formData.patientId },  // Adapter à la structure attendue
+      commentaire: formData.prescription.commentaire,
+    };
+
+    this.prescriptionService.createPrescription(payload).subscribe(
+      (response) => {
+        console.log('Prescription créée', response);
+        this.prescriptionForm.reset();
+      },
+      (error) => console.error('Erreur lors de la création de la prescription', error)
+    );
+  }
+}
+
+
+
+ // Nouvelle méthode pour afficher les détails de l'ordonnance
+ viewPrescriptionDetails(id: number) {
+  this.prescriptionService.getPrescriptionById(id).subscribe((data) => {
+    this.selectedPrescription = data;
+    this.prescriptionService.getPrescriptionDetails(id).subscribe((details) => {
+      this.dialog.open(OrdonnanceDialogComponent, {
+        data: { prescription: this.selectedPrescription, details: details },
+        width: '600px', // Ajustez la largeur si nécessaire
+        maxHeight: '80vh', // Limiter la hauteur pour permettre le défilement
+        panelClass: 'ordonnance-dialog' // Classe pour le style
+      });
+    });
+  });
+}
+
+
+  // Méthodes pour modifier et supprimer les prescriptions
+  editPrescription(id: number) {
+    // Logique pour modifier la prescription (par exemple, ouvrir un formulaire de modification)
+    console.log(`Modifier la prescription avec ID: ${id}`);
   }
 
-  submitForm() {
-    if (this.prescriptionForm.valid) {
-      const formData = this.prescriptionForm.value;
-      const payload = {
-        patientId: formData.patientId,
-        prescription: formData.prescription,
-        details: formData.details,
-      };
+deletePrescription(id: number) {
+  // Logique pour supprimer la prescription
+  this.prescriptionService.deletePrescription(id).subscribe(
+    () => {
+      console.log('Prescription supprimée');
+      this.loadPrescriptions(); // Recharger la liste après suppression
+    },
+    (error) => console.error('Erreur lors de la suppression de la prescription', error)
+  );
+}
 
-      this.prescriptionService.createPrescription(payload).subscribe(
-        (response) => {
-          console.log('Prescription créée', response);
-          this.prescriptionForm.reset();
-          this.details.clear(); // Réinitialiser les détails
-        },
-        (error) => console.error('Erreur lors de la création de la prescription', error)
-      );
-    }
+
+ // prescription.component.ts
+  navigateToAddDetail(prescriptionId: number) {
+    this.router.navigate(['/prescription-detail', prescriptionId]);
   }
+
+
 }
