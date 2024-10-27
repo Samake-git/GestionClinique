@@ -14,6 +14,7 @@ import { RolesComponent } from './roles/roles.component';
 import { TicketpayementComponent } from './ticketpayement/ticketpayement.component';
 import { PrescriptionDetailComponent } from './prescription-detail/prescription-detail.component';
 import { EmploisDuTempsComponent } from './emplois-du-temps/emplois-du-temps.component';
+import { RecupayementComponent } from './recupayement/recupayement.component';
 
 
 
@@ -34,6 +35,7 @@ export const routes: Routes = [
 {path: 'prescription-detail/:id', component: PrescriptionDetailComponent},
 {path: 'payer-ticket/:id', component: TicketpayementComponent},
 {path: 'emplois', component: EmploisDuTempsComponent},
+{path: 'recu/:id', component: RecupayementComponent},
 {path: '', redirectTo: '/login', pathMatch: 'full' },
 
 ];

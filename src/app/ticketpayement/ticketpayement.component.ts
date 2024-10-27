@@ -65,7 +65,7 @@ export class TicketpayementComponent {
           this.snackBar.open(response.message, 'Fermer', {
             duration: 3000,
           });
-          this.router.navigate(['/tickets']);
+          this.router.navigate(['/recu', this.ticketId]);
         },
         error => {
           console.error('Erreur lors du paiement du ticket:', error);

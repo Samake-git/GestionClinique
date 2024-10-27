@@ -69,4 +69,9 @@ export class TicketService {
     return this.http.post<any>(`${this.baseUrl}/payer/${ticketId}`, {}, { headers: this.getAuthHeaders() });
   }
 
+  // Nouvelle méthode pour obtenir un ticket par ID
+  getTicketById(ticketId: number): Observable<Ticket> {
+    return this.http.get<Ticket>(`${this.baseUrl}/afficher/${ticketId}`, { headers: this.getAuthHeaders() });
+  }
+
 }
