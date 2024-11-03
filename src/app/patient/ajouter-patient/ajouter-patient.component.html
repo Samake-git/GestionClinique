@@ -1,0 +1,76 @@
+<div class="main-container">
+    <h2>{{ isEditMode ? 'Modifier Patient' : 'Ajouter Patient' }}</h2>
+    <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" class="patient-form">
+        <div class="form-group">
+            <label for="nom">Nom:</label>
+            <input id="nom" formControlName="nom" type="text" required />
+        </div>
+
+        <div class="form-group">
+            <label for="prenom">Prénom:</label>
+            <input id="prenom" formControlName="prenom" type="text" required />
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input id="username" formControlName="username" type="text" required />
+        </div>
+
+        <div class="form-group">
+            <label for="motDePasse">Mot de passe:</label>
+            <input id="motDePasse" formControlName="motDePasse" type="password" required />
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input id="email" formControlName="email" type="email" required />
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Téléphone:</label>
+            <input id="phone" formControlName="phone" type="text" required />
+        </div>
+
+        <div class="form-group">
+            <label for="sexe">Sexe:</label>
+            <select id="sexe" formControlName="sexe" required>
+                <option value="">Sélectionner</option>
+                <option value="Homme">Homme</option>
+                <option value="Femme">Femme</option>
+                <option value="AUCUN">AUCUN</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="adresse">Adresse:</label>
+            <input id="adresse" formControlName="adresse" type="text" required />
+        </div>
+
+        <div class="form-group">
+            <label for="age">Âge:</label>
+            <input id="age" formControlName="age" type="number" required />
+        </div>
+
+        <div class="form-group">
+            <label for="poids">Poids:</label>
+            <input id="poids" formControlName="poids" type="text" required />
+        </div>
+
+        <div class="form-group">
+            <label for="ethnie">Ethnie:</label>
+            <input id="ethnie" formControlName="ethnie" type="text" required />
+        </div>
+
+        <div class="form-group">
+            <label for="photos">Photo:</label>
+            <input id="photos" type="file" (change)="onFileSelected($event)" />
+        </div>
+
+        <div class="button-container">
+            <button type="submit" [disabled]="patientForm.invalid">
+                {{ isEditMode ? 'Modifier Patient' : 'Ajouter Patient' }}
+            </button>
+            <button type="button" (click)="onCancel()">Annuler</button>
+        </div>
+    </form>
+</div>

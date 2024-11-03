@@ -12,6 +12,7 @@ import { MatSelect } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { EmploiDuTemps } from '../interfaces/emploi-du-temps.model';
 import { EmploiDuTempsService } from '../service/emploi-du-temps.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-emplois-du-temps',
@@ -38,7 +39,7 @@ export class EmploisDuTempsComponent {
   isEditing = false;
   confirmationMessage: string | null = null; // Pour stocker le message de confirmation
 
-  constructor(private emploiDuTempsService: EmploiDuTempsService, private fb: FormBuilder) {
+  constructor(private emploiDuTempsService: EmploiDuTempsService, private fb: FormBuilder, private router: Router) {
     this.emploiForm = this.fb.group({
       id: [null],
       jour: ['', Validators.required],
@@ -52,7 +53,7 @@ export class EmploisDuTempsComponent {
   }
 
   loadEmploisDuTemps(): void {
-    this.emploiDuTempsService.afficherDisponibilites().subscribe(data => {
+    this.emploiDuTempsService.afficherDisponibilitesMedecin().subscribe(data => {
       this.emploisDuTemps = data;
     });
   }
@@ -113,4 +114,9 @@ onSubmit(): void {
       }, 3000);
     });
   }
+
+  viewRendezVous(emploiId: number) {
+    this.router.navigate(['/rendezvous', emploiId]); // Assurez-vous que la route est correcte
+}
+
 }

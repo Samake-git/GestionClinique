@@ -45,6 +45,10 @@ export class EmploiDuTempsService {
     return this.http.get<EmploiDuTemps[]>(`${this.baseUrl}/afficher`, { headers: this.getAuthHeaders() });
   }
 
+  afficherDisponibilitesMedecin(): Observable<EmploiDuTemps[]> {
+    return this.http.get<EmploiDuTemps[]>(`${this.baseUrl}/mes-disponibilites`, { headers: this.getAuthHeaders() });
+  }
+
   afficherDisponibilitesParJour(jour: string): Observable<EmploiDuTemps[]> {
     return this.http.get<EmploiDuTemps[]>(`${this.baseUrl}/afficher/jour`, { params: { jour } });
   }

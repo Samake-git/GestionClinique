@@ -1,0 +1,45 @@
+<!-- rendez-vous.component.html -->
+<div class="rendezvous-container">
+    <h2 class="header">Rendez-vous associés à l'Emploi du Temps {{ emploiDuTempsId }}</h2>
+    <table mat-table [dataSource]="rendezVousList" class="mat-elevation-z8">
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let rendezVous"> {{ rendezVous.description }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="heureDebut">
+            <th mat-header-cell *matHeaderCellDef> Heure de Début </th>
+            <td mat-cell *matCellDef="let rendezVous"> {{ rendezVous.heureDebut }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="heureFin">
+            <th mat-header-cell *matHeaderCellDef> Heure de Fin </th>
+            <td mat-cell *matCellDef="let rendezVous"> {{ rendezVous.heureFin }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="patientNom">
+            <th mat-header-cell *matHeaderCellDef> Patient </th>
+            <td mat-cell *matCellDef="let rendezVous"> {{ rendezVous.patient.nom }} {{ rendezVous.patient.prenom }} ({{ rendezVous.patient.phone }}) </td>
+        </ng-container>
+
+        <ng-container matColumnDef="statut">
+            <th mat-header-cell *matHeaderCellDef> Statut </th>
+            <td mat-cell *matCellDef="let rendezVous"> {{ rendezVous.statut }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let rendezVous">
+                <button mat-icon-button color="primary" (click)="validerRendezVous(rendezVous.id)" aria-label="Valider">
+                    <mat-icon>check</mat-icon> <!-- Icône pour valider -->
+                </button>
+                <button mat-icon-button color="warn" (click)="annulerRendezVous(rendezVous.id)" aria-label="Annuler">
+                    <mat-icon>cancel</mat-icon> <!-- Icône pour annuler -->
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['description', 'heureDebut', 'heureFin', 'patientNom', 'statut', 'action']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['description', 'heureDebut', 'heureFin', 'patientNom', 'statut', 'action'];"></tr>
+    </table>
+</div>

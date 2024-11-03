@@ -19,6 +19,7 @@ import { CategorieAnalyseService } from '../service/categorieAnalyse.service';
 import { TypeAnalyseService } from '../service/type-analyse.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-analyse',
@@ -54,7 +55,8 @@ export class AnalyseComponent {
     private typeAnalyseService: TypeAnalyseService,
     private categorieAnalyseService: CategorieAnalyseService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authService: AuthService
   ) {
     this.analyseForm = this.formBuilder.group({
       id: [0],
@@ -179,22 +181,18 @@ export class AnalyseComponent {
     this.router.navigate(['/resultatExamen']);
   }
 
-  payement(analyse: Analyse) {
-    this.analyseService.payerAnalyse(analyse.id).subscribe(
-      response => {
-        console.log('Paiement effectué avec succès:', response);
-        this.snackBar.open('Paiement effectué avec succès !', 'Fermer', {
-          duration: 3000, // Durée d'affichage en millisecondes
-        });
-        this.router.navigate(['/recuAnalyse', analyse.id]); // Rediriger vers la page de reçu
-      },
-      error => {
-        console.error('Erreur lors du paiement de l\'analyse:', error);
-        this.snackBar.open('Erreur lors du paiement. Veuillez réessayer.', 'Fermer', {
-          duration: 3000,
-        });
-      }
-    );
+  imprimerRecu(analyse: any) {
+    // Remplacez 'recu' par le chemin vers votre route de reçu
+    this.router.navigate(['/recuAnalyse', analyse.id]); // Redirige vers le reçu de l'analyse
+  }
+
+  payementAnalyse(analyseId: number): void {
+    // Rediriger vers le composant de paiement avec l'ID du ticket
+    this.router.navigate(['/payer-analyse', analyseId]);
+  }
+
+  isMedecin(): boolean {
+    return this.authService.isUserMedecin();
   }
 
 }

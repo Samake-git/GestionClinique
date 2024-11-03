@@ -1,12 +1,21 @@
-<div id="recu-content" *ngIf="analyse">
-    <h2>Reçu de Paiement</h2>
-    <p><strong>Numéro de Ticket :</strong> {{ analyse.id }}</p>
-    <p><strong>Appareil Utilisé :</strong> {{ analyse.appareilUtilise }}</p>
-    <p><strong>Type d'Analyse :</strong> {{ analyse.typeAnalyse.nom }}</p>
-    <p><strong>Patient :</strong> {{ analyse.patient.nom }} {{ analyse.patient.prenom }}</p>
-    <p><strong>Montant Payé :</strong> {{ analyse.typeAnalyse.prix}} FCFA</p>
-    <button (click)="imprimerRecu()">Imprimer le Reçu</button>
+<div id="recu-content" *ngIf="analyse" class="recu-container">
+  <h2 class="recu-title">Reçu de Paiement</h2>
+  
+  <div *ngIf="analyse.estPaye; else notPaid" class="recu-details">
+      <p><strong>Numéro de Ticket :</strong> {{ analyse.id }}</p>
+      <p><strong>Appareil Utilisé :</strong> {{ analyse.appareilUtilise }}</p>
+      <p><strong>Type d'Analyse :</strong> {{ analyse.typeAnalyse.nom }}</p>
+      <p><strong>Patient :</strong> {{ analyse.patient.nom }} {{ analyse.patient.prenom }}</p>
+      <p><strong>Montant Payé :</strong> {{ analyse.typeAnalyse.prix }} FCFA</p>
   </div>
-  <div *ngIf="!analyse">
-    <p>Aucun reçu trouvé.</p>
-  </div>
+
+  <ng-template #notPaid>
+      <p>Le reçu n'est pas encore payé.</p>
+  </ng-template>
+  
+  <button *ngIf="analyse.estPaye" class="print-button" (click)="imprimerRecu()">Imprimer le Reçu</button>
+</div>
+
+<div *ngIf="!analyse" class="no-receipt">
+  <p>Aucun reçu trouvé.</p>
+</div>

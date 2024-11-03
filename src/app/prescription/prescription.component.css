@@ -1,0 +1,76 @@
+.prescription-container {
+    padding: 20px;
+  }
+  
+
+
+   /* Centrage du titre h2 et réduction de sa taille */
+   h2 {
+    font-size: 40px; /* Diminuer la taille du titre */
+    text-align: center; /* Centrer le titre */
+    margin-bottom: 20px; /* Espacement sous le titre */
+  }
+
+
+  /* Formulaire centré avec style similaire */
+  .form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px; /* Espacement sous le formulaire */
+  }
+  
+  /* Espacement entre les groupes de champs */
+  .form-group {
+    margin-bottom: 20px; /* Espacement entre les éléments du formulaire */
+  }
+  
+  input, select {
+    width: 100%; /* Assurer que chaque champ prend toute la largeur */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Style des boutons */
+  button {
+    margin-top: 10px; /* Espacement au-dessus des boutons */
+    cursor: pointer;
+  }
+  
+  /* Table des prescriptions */
+  .table-container {
+    max-width: 90%;  /* Ajuster la largeur du tableau */
+    margin: 20px auto;  /* Centrer horizontalement et ajouter de l'espace autour */
+    overflow-x: auto;  /* Ajouter un défilement horizontal si nécessaire */
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: center;  /* Centrer les éléments */
+    border-bottom: 1px solid #ddd;  /* Ligne de séparation sous chaque cellule */
+  }
+  
+  /* Style de l'en-tête du tableau */
+  th {
+    background-color: #4CAF50; /* Couleur d'arrière-plan de l'en-tête */
+    color: rgb(19, 18, 18); /* Couleur du texte */
+  }
+  
+  /* Effet de survol pour les lignes du tableau */
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Effet d'élévation pour les composants Material */
+  .mat-elevation-z8 {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  }

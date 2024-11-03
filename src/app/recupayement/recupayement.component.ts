@@ -14,16 +14,18 @@ import { MatTableModule } from '@angular/material/table';
 @Component({
   selector: 'app-recupayement',
   standalone: true,
-  imports: [ CommonModule,
+  imports: [ 
+    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
     MatTableModule,
-    MatOption,],
+    MatOption,
+  ],
   templateUrl: './recupayement.component.html',
-  styleUrl: './recupayement.component.css'
+  styleUrls: ['./recupayement.component.css']
 })
 export class RecupayementComponent {
   ticket: Ticket | null = null;
@@ -87,7 +89,5 @@ export class RecupayementComponent {
         `);
         popup.document.close();
     }
-}
- 
-
+  }
 }

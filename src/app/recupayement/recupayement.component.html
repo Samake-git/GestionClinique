@@ -1,7 +1,14 @@
-<div id="recu-content">
+<div id="recu-content" class="recu-container" *ngIf="ticket">
     <h2>Reçu de Paiement</h2>
-    <p><strong>Numéro de Ticket :</strong> {{ ticket?.tel}}</p>
-    <p><strong>Description :</strong> {{ ticket?.description }}</p>
-    <p><strong>Montant Payé :</strong> {{ ticket?.motifConsultation?.prix }} FCFA</p>
+    
+    <div *ngIf="ticket.estPaye; else notPaid">
+        <p><strong>Numéro de Ticket :</strong> {{ ticket.tel }}</p>
+        <p><strong>Description :</strong> {{ ticket.description }}</p>
+        <p><strong>Montant Payé :</strong> {{ ticket.motifConsultation.prix }} FCFA</p>
+        <button (click)="imprimerRecu()" class="btn btn-primary">Imprimer le Reçu</button>
+    </div>
+    
+    <ng-template #notPaid>
+        <p>Le reçu n'est pas encore payé.</p>
+    </ng-template>
 </div>
-<button (click)="imprimerRecu()" class="btn btn-primary">Imprimer le Reçu</button>

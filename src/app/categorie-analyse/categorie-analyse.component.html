@@ -1,0 +1,49 @@
+<div class="main-container">
+
+  <h2>Gestion des Catégories d'Analyse</h2>
+
+  <form *ngIf="isEditing || currentCategorieId === undefined" [formGroup]="categorieForm" (ngSubmit)="isEditing ? updateCategorie() : addCategorie()" class="form-container">
+    <div>
+      <label for="nom">Nom:</label>
+      <input id="nom" formControlName="nom" />
+      <div *ngIf="categorieForm.get('nom')?.invalid && categorieForm.get('nom')?.touched" class="error-message">
+        Le nom est requis.
+      </div>
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      <input id="description" formControlName="description" />
+    </div>
+    <button type="submit" [disabled]="categorieForm.invalid">{{ isEditing ? 'Modifier' : 'Ajouter' }}</button>
+  </form>
+
+  <h2>Liste des Catégories</h2>
+  <div class="table-container">
+    <table mat-table [dataSource]="categories" class="mat-elevation-z8">
+      <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef> Nom </th>
+        <td mat-cell *matCellDef="let categorie"> {{ categorie.nom }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let categorie"> {{ categorie.description }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let categorie">
+          <button mat-icon-button color="primary" (click)="editCategorie(categorie)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteCategorie(categorie.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['nom', 'description', 'action']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['nom', 'description', 'action'];"></tr>
+    </table>
+  </div>
+</div>

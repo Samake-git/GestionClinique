@@ -17,6 +17,7 @@ export interface Analyse {
     user: User;
     categorieAnalyse: CategorieAnalyse;
     resultats: ResultatExamen[];
+    estPaye?: boolean;
 }
 
 

@@ -17,6 +17,10 @@ import { EmploisDuTempsComponent } from './emplois-du-temps/emplois-du-temps.com
 import { RecupayementComponent } from './recupayement/recupayement.component';
 import { AnalyseListeComponent } from './analyse-liste/analyse-liste.component';
 import { RecuAnalyseComponent } from './recu-analyse/recu-analyse.component';
+import { CategorieAnalyseComponent } from './categorie-analyse/categorie-analyse.component';
+import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
+import { AnalysePayementComponent } from './analyse-payement/analyse-payement.component';
+import { PatientComponent } from './patient/patient.component';
 
 
 
@@ -32,13 +36,17 @@ export const routes: Routes = [
 {path: 'prescription' , component: PrescriptionComponent},
 {path: 'typeAnalyse', component: TypeAnalyseComponent},
 {path: 'analyse', component: AnalyseComponent},
+{path: 'categorie', component: CategorieAnalyseComponent},
 {path: 'resultatExamen', component: ResultatExamenComponent},
 {path: 'role', component: RolesComponent},
 {path: 'prescription-detail/:id', component: PrescriptionDetailComponent},
 {path: 'payer-ticket/:id', component: TicketpayementComponent},
+{path: 'payer-analyse/:id', component: AnalysePayementComponent},
 {path: 'emplois', component: EmploisDuTempsComponent},
 {path: 'recu/:id', component: RecupayementComponent},
 {path: 'recuAnalyse/:id', component: RecuAnalyseComponent},
+{path: 'patient', component: PatientComponent},
+{ path: 'rendezvous/:id', component: RendezVousComponent},
 {path: '', redirectTo: '/login', pathMatch: 'full' },
 
 ];

@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import { AnalyseService } from '../service/analyse.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,7 +40,11 @@ export class DashboardComponent implements OnInit {
   public lineChartData: number[] = []; // Représente les valeurs des tickets
   public lineChartLabels: string[] = []; // Représente les dates
   
-  constructor(private ticketService: TicketService, private router: Router, private authService: AuthService) {
+  constructor(private ticketService: TicketService, 
+    private router: Router,
+     private authService: AuthService,
+   private analyseService : AnalyseService,
+   private snackBar: MatSnackBar) {
 
 
      // Configuration des options du graphique doughnut
@@ -69,12 +75,14 @@ export class DashboardComponent implements OnInit {
     };
   }
 
+
   ngOnInit(): void {
     this.loadTicketsByDate();
     this.loadTicketStates();
     this.loadTotalTickets();
     this.loadTickets();
-    this.loadTotalPatients()
+    this.loadTotalPatients();
+    this.loadTotalAnalyse()
   }
 
   // Charger les tickets par date et mettre à jour le graphique
@@ -134,6 +142,19 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+     // Charger le total des Analyse depuis l'API
+     loadTotalAnalyse() {
+      this.analyseService.getTotalAnalyses().subscribe(
+        (total: number) => {
+          this.totalAnalyses = total;
+        },
+        error => {
+          console.error("Erreur lors du chargement du total des analyses :", error);
+        }
+      );
+    }
+    
+    
 
     // Charger le total des tickets depuis l'API
     loadTotalPatients() {
@@ -163,14 +184,41 @@ export class DashboardComponent implements OnInit {
   }
 
    // Méthodes pour gérer les actions des tickets
-   prendreEnCharge(ticket: Ticket) {
-    // Logique pour prendre en charge le ticket
-    console.log('Prendre en charge:', ticket);
+   prendreEnCharge(ticket: Ticket): void {
+    this.ticketService.prendreEnCharge(ticket.id).subscribe(
+      (updatedTicket: Ticket) => {
+        this.loadTickets();
+        console.log('Ticket pris en charge avec succès:', updatedTicket);
+        this.updateTicketInList(updatedTicket);
+        this.snackBar.open("Ticket pris en charge avec succès", "Fermer", { duration: 3000 });
+      },
+      error => {
+        console.error("Erreur lors de la prise en charge du ticket :", error);
+        this.snackBar.open("Erreur lors de la prise en charge du ticket", "Fermer", { duration: 3000 });
+      }
+    );
   }
 
-  traiter(ticket: Ticket) {
-    // Logique pour traiter le ticket
-    console.log('Traiter:', ticket);
+  traiter(ticket: Ticket): void {
+    this.ticketService.traiter(ticket.id).subscribe(
+      (updatedTicket: Ticket) => {
+        this.loadTickets();
+        console.log('Ticket traité avec succès:', updatedTicket);
+        this.updateTicketInList(updatedTicket);
+        this.snackBar.open("Ticket traité avec succès", "Fermer", { duration: 3000 });
+      },
+      error => {
+        console.error("Erreur lors du traitement du ticket :", error);
+        this.snackBar.open("Erreur lors du traitement du ticket", "Fermer", { duration: 3000 });
+      }
+    );
+  }
+
+  private updateTicketInList(updatedTicket: Ticket): void {
+    const index = this.tickets.findIndex(t => t.id === updatedTicket.id);
+    if (index !== -1) {
+      this.tickets[index] = updatedTicket;
+    }
   }
 
   isAdmin(): boolean {

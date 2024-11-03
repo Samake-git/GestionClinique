@@ -1,0 +1,45 @@
+<div class="button-container">
+    <button mat-raised-button color="accent" (click)="openDialog()">Ajouter Patient</button>
+</div>
+
+<h2 class="title">Liste des Patients</h2>
+<div class="table-container">
+    <table mat-table [dataSource]="patients" class="mat-elevation-z8">
+        
+        <!-- Définissez ici les colonnes pour les patients -->
+        <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef>Nom</th>
+            <td mat-cell *matCellDef="let patient">{{ patient.nom }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="prenom">
+            <th mat-header-cell *matHeaderCellDef>Prénom</th>
+            <td mat-cell *matCellDef="let patient">{{ patient.prenom }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let patient">{{ patient.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Téléphone</th>
+            <td mat-cell *matCellDef="let patient">{{ patient.phone }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let patient">
+                <button mat-icon-button color="primary" (click)="editPatient(patient)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deletePatient(patient.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['nom', 'prenom', 'email', 'phone', 'actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['nom', 'prenom', 'email', 'phone', 'actions']"></tr>
+    </table>
+</div>

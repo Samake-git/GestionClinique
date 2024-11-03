@@ -228,4 +228,9 @@ export class TicketsComponent implements OnInit {
     this.router.navigate(['/payer-ticket', ticketId]);
   }
 
+  imprimerRecu(ticket: any) {
+    // Remplacez 'recu' par le chemin vers votre route de reçu
+    this.router.navigate(['/recu', ticket.id]); // Redirige vers le reçu du ticket
+  }
+
 }

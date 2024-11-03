@@ -11,5 +11,7 @@ export interface Ticket {
   };
   etat?: string;  // Optionnel : "En attente", "Pris en charge", "Traité"
   userId?: number;  // Optionnel : ID de l'utilisateur qui crée le ticket
+  estPaye?: boolean;
   medecinId?: number;  // Optionnel : ID du médecin qui prend en charge le ticket
 }
+

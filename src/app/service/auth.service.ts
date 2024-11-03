@@ -36,5 +36,15 @@ export class AuthService {
     return role ? role.nom === 'RECEPTIONNISTE' : true; // Renvoie false si aucun rôle n'est trouvé
   }
 
+    
+    isUserAdminOrMedecin(): boolean {
+      return this.isUserAdmin() || this.isUserMedecin();
+    }
+  
+   
+    isUserLaborantinOrAdmin(): boolean {
+      return this.isUserLaborantin() || this.isUserAdmin();
+    }
+
 
 }

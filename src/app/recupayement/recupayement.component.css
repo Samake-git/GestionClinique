@@ -1,0 +1,51 @@
+#recu-content {
+    max-width: 600px; /* Limite la largeur pour un meilleur focus */
+    margin: 20px auto; /* Centrer le contenu */
+    padding: 20px; /* Espacement interne */
+    border: 1px solid #e0e0e0; /* Bordure légère */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    background-color: #ffffff; /* Couleur de fond */
+}
+
+#recu-content h2 {
+    text-align: center; /* Centrer le titre */
+    color: #3f51b5; /* Couleur du titre */
+    margin-bottom: 20px; /* Espace en bas du titre */
+    font-size: 24px; /* Taille de police */
+}
+
+#recu-content p {
+    font-size: 16px; /* Taille de police pour les détails */
+    line-height: 1.5; /* Espacement entre les lignes */
+}
+
+#recu-content strong {
+    color: #3f51b5; /* Couleur pour les étiquettes en gras */
+}
+
+.btn-primary {
+    display: block; /* Affichage en bloc pour centrer le bouton */
+    width: 30%; /* Largeur du bouton */
+    padding: 10px; /* Espacement interne */
+    background-color: #3f51b5; /* Couleur du bouton */
+    color: white; /* Couleur du texte */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur pointer */
+    font-size: 16px; /* Taille de police du bouton */
+    text-align: center; /* Centrer le texte du bouton */
+    transition: background-color 0.3s ease; /* Transition pour l'effet hover */
+    margin: 20px auto; /* Centrer le bouton avec une marge auto */
+}
+
+.btn-primary:hover {
+    background-color: #303f9f; /* Couleur plus foncée au survol */
+}
+
+.no-receipt {
+    text-align: center; /* Centrer le message d'absence de reçu */
+    margin-top: 20px; /* Espacement au-dessus */
+    font-size: 18px; /* Taille de police du message */
+    color: #ff5722; /* Couleur d'alerte */
+}

@@ -1,0 +1,20 @@
+<div class="ticket-details">
+    <h2>Payer l'Analyse</h2>
+  
+    <div *ngIf="selectedAnalyse; else noAnalyse" class="ticket-info">
+        <p><strong>Numéro d'Analyse :</strong> {{ selectedAnalyse.id }}</p>
+        <p><strong>Appareil Utilisé :</strong> {{ selectedAnalyse.appareilUtilise }}</p>
+        <p><strong>Type d'Analyse :</strong> {{ selectedAnalyse.typeAnalyse.nom }}</p>
+        <p><strong>Patient :</strong> {{ selectedAnalyse.patient.nom }} {{ selectedAnalyse.patient.prenom }}</p>
+        <p>
+            <strong>Montant à Payer :</strong> {{ selectedAnalyse.typeAnalyse.prix }} FCFA
+        </p>
+  
+        <button (click)="payerAnalyse()" class="btn btn-primary">Payer l'Analyse</button>
+    </div>
+  
+    <ng-template #noAnalyse>
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+        <p *ngIf="!errorMessage">Aucune analyse trouvée.</p>
+    </ng-template>
+</div>

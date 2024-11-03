@@ -7,10 +7,11 @@ export interface Patient {
     email: string;
     phone: string;
     username: string;
+    motDePasse: string;
     sexe: string;
     adresse: string;
     age: number;
     poids: string;
-    ethnie: string;
+    ethenie: string;
    
   }

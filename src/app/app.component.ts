@@ -57,12 +57,13 @@ export class AppComponent {
           'departement',
           'consultation',
           'prescription',
-          'client',
+          'patient',
           'payement',
           'personnel',
           'utilisateurs',
           'typeAnalyse',
           'parametres',
+          'categorie',
           'motifconsultation',
           'emplois'
         ];
@@ -116,5 +117,14 @@ export class AppComponent {
     return this.authService.isUserLaborantin();
   }
 
+
+  isAdminOrMedecin (): boolean {
+    return this.authService.isUserAdminOrMedecin();
+  }
+
+
+  isLaborantinOrAdmin(): boolean {
+    return this.authService.isUserLaborantinOrAdmin();
+  }
 
 }

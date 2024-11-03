@@ -27,20 +27,23 @@ export class CategorieAnalyseService {
     });
   }
 
-
-  createCategorieAnalyse(categorieAnalyse: CategorieAnalyse): Observable<CategorieAnalyse> {
-    return this.http.post<CategorieAnalyse>(this.apiUrl + '/ajouter', categorieAnalyse, { headers: this.getAuthHeaders() });
-  }
-
-  updateCategorieAnalyse(categorieAnalyse: CategorieAnalyse): Observable<CategorieAnalyse> {
-    return this.http.put<CategorieAnalyse>(this.apiUrl + '/modifier/' + categorieAnalyse.id, categorieAnalyse,  { headers: this.getAuthHeaders() });
-  }
-
-  deleteCategorieAnalyse(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl + '/supprimer/' + id,  { headers: this.getAuthHeaders() });
+  addCategorieAnalyse(categorie: CategorieAnalyse): Observable<CategorieAnalyse> {
+    return this.http.post<CategorieAnalyse>(`${this.apiUrl}/ajouter`, categorie, { headers: this.getAuthHeaders() });
   }
 
   getAllCategoriesAnalyse(): Observable<CategorieAnalyse[]> {
-    return this.http.get<CategorieAnalyse[]>(this.apiUrl + '/afficherTous',  { headers: this.getAuthHeaders() });
+    return this.http.get<CategorieAnalyse[]>(`${this.apiUrl}/afficherTous`, { headers: this.getAuthHeaders() });
+  }
+
+  getCategorieAnalyseById(id: number): Observable<CategorieAnalyse> {
+    return this.http.get<CategorieAnalyse>(`${this.apiUrl}/afficher/${id}`, { headers: this.getAuthHeaders() });
+  }
+
+  updateCategorieAnalyse(id: number, categorie: CategorieAnalyse): Observable<CategorieAnalyse> {
+    return this.http.put<CategorieAnalyse>(`${this.apiUrl}/modifier/${id}`, categorie, { headers: this.getAuthHeaders() });
+  }
+
+  deleteCategorieAnalyse(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/supprimer/${id}`, { headers: this.getAuthHeaders() });
   }
 }

@@ -87,14 +87,21 @@
             </mat-list-item>
             <mat-list-item *ngIf="isMedecin()" class="mat-list-item active" id="livraisonsItem" routerLink="consultation" routerLinkActive="active">
               <button class="btn_menu" mat-button>
-                <mat-icon style="color: #ee4d2d">local_shipping</mat-icon>
+                <mat-icon style="color: #ee4d2d">assignment_ind</mat-icon>
                 <span>Consultations</span>
+              </button>
+            </mat-list-item>  
+
+            <mat-list-item *ngIf="isLaborantinOrAdmin()"  class="mat-list-item active" id="livraisonsItem" routerLink="categorie" routerLinkActive="active">
+              <button class="btn_menu" mat-button>
+                <mat-icon style="color: #ee4d2d">local_laundry_service</mat-icon>
+                <span>Catégorie Analyses</span>
               </button>
             </mat-list-item>
 
             <mat-list-item class="mat-list-item active" id="livraisonsItem" routerLink="analyse" routerLinkActive="active">
               <button class="btn_menu" mat-button>
-                <mat-icon style="color: #ee4d2d">list_alt</mat-icon>
+                <mat-icon style="color: #ee4d2d" >science</mat-icon>
                 <span>Analyses</span>
               </button>
             </mat-list-item>
@@ -106,13 +113,15 @@
               </button>
             </mat-list-item>
 
-            <mat-list-item class="mat-list-item active" id="categorieItem" routerLink="categorie" routerLinkActive="active">
+            <!-- <mat-list-item class="mat-list-item active" id="categorieItem" routerLink="categorie" routerLinkActive="active">
               <button class="btn_menu" mat-button>
                 <mat-icon style="color: #ee4d2d">category</mat-icon>
                 <span>Dossiers</span>
               </button>
-            </mat-list-item>
-            <mat-list-item class="mat-list-item active" id="clientItem" routerLink="client" routerLinkActive="active">
+            </mat-list-item> -->
+
+            
+            <mat-list-item *ngIf="isAdminOrMedecin()" class="mat-list-item active" id="clientItem" routerLink="patient" routerLinkActive="active">
               <button class="btn_menu" mat-button>
                 <mat-icon style="color: #ee4d2d">people</mat-icon>
                 <span>Patients</span>
@@ -135,20 +144,20 @@
             </mat-list-item>
             <mat-list-item *ngIf="isMedecin()" class="mat-list-item active" id="utilisateursItem" routerLink="prescription" routerLinkActive="active">
               <button class="btn_menu" mat-button>
-                <mat-icon style="color: #ee4d2d">group_add</mat-icon>
+                <mat-icon style="color: #ee4d2d">local_hospital</mat-icon>
                <span> Prescription</span>
               </button>
             </mat-list-item>
-            <mat-list-item class="mat-list-item active" id="utilisateursItem" routerLink="emplois" routerLinkActive="active">
+            <mat-list-item *ngIf="isAdminOrMedecin()" class="mat-list-item active" id="utilisateursItem" routerLink="emplois" routerLinkActive="active">
               <button class="btn_menu" mat-button>
-                <mat-icon style="color: #ee4d2d">group_add</mat-icon>
+                <mat-icon style="color: #ee4d2d">calendar_today</mat-icon>
                <span> Emplois Du temps</span>
               </button>
             </mat-list-item>
-            <mat-list-item class="mat-list-item active" id="stockItem" routerLink="typeAnalyse" routerLinkActive="active">
+            <mat-list-item *ngIf="isLaborantinOrAdmin()" class="mat-list-item active" id="stockItem" routerLink="typeAnalyse" routerLinkActive="active">
               <button class="btn_menu" mat-button>
                 <mat-icon style="color: #ee4d2d">store_mall_directory</mat-icon>
-                <span>Laboratoire</span>
+                <span>Type d'Analyse</span>
               </button>
             </mat-list-item>
             <mat-list-item class="mat-list-item active" id="parametresItem" routerLink="parametres"  routerLinkActive="active">

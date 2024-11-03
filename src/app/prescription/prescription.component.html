@@ -1,13 +1,14 @@
-<!-- prescription.component.html -->
-<div>
+<div class="prescription-container">
   <h2>Créer une Prescription</h2>
-  <form [formGroup]="prescriptionForm" (ngSubmit)="submitForm()">
-    <label for="patient">Sélectionner un Patient:</label>
-    <select formControlName="patientId" required>
-      <option *ngFor="let patient of patients" [value]="patient.id">{{ patient.nom }} {{ patient.prenom }}</option>
-    </select>
+  <form [formGroup]="prescriptionForm" (ngSubmit)="submitForm()" class="form-container">
+    <div class="form-group">
+      <label for="patient">Sélectionner un Patient:</label>
+      <select formControlName="patientId" required>
+        <option *ngFor="let patient of patients" [value]="patient.id">{{ patient.nom }} {{ patient.prenom }}</option>
+      </select>
+    </div>
 
-    <div formGroupName="prescription">
+    <div formGroupName="prescription" class="form-group">
       <label for="commentaire">Commentaire:</label>
       <input formControlName="commentaire" placeholder="Commentaire" required />
     </div>
@@ -15,8 +16,7 @@
     <button type="submit" [disabled]="prescriptionForm.invalid">Créer Prescription</button>
   </form>
 
-
-  <h3>Liste des Prescriptions</h3>
+  <h2>Liste des Prescriptions</h2>
   <div class="table-container">
     <table mat-table [dataSource]="prescriptions" class="mat-elevation-z8">
       <ng-container matColumnDef="id">
@@ -47,7 +47,7 @@
             <mat-icon>add</mat-icon>
           </button>
           <button mat-icon-button (click)="viewPrescriptionDetails(prescription.id)" aria-label="Afficher ordonnance">
-            <mat-icon>description</mat-icon> <!-- Icône pour l'ordonnance -->
+            <mat-icon>description</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -56,9 +56,4 @@
       <tr mat-row *matRowDef="let row; columns: ['id', 'patient', 'commentaire', 'action'];"></tr>
     </table>
   </div>
-
-
-
-
-
 </div>

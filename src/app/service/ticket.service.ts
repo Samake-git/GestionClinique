@@ -8,7 +8,9 @@ import { Ticket } from '../interfaces/ticket.model';
   providedIn: 'root',
 })
 export class TicketService {
-  private baseUrl = 'http://localhost:8080/api/receptionniste/ticket'; // Modifiez selon votre API
+  private baseUrl = 'http://localhost:8080/api/receptionniste/ticket'; 
+  private baseUrl1 =  'http://localhost:8080/api/medecin/ticket';
+
 
   constructor(private http: HttpClient) {}
 
@@ -73,5 +75,15 @@ export class TicketService {
   getTicketById(ticketId: number): Observable<Ticket> {
     return this.http.get<Ticket>(`${this.baseUrl}/afficher/${ticketId}`, { headers: this.getAuthHeaders() });
   }
+
+   // Méthodes pour prendre en charge un ticket
+   prendreEnCharge(ticketId: number): Observable<Ticket> {
+    return this.http.put<Ticket>(`${this.baseUrl1}/prise-en-charge/${ticketId}`, {}, { headers: this.getAuthHeaders() });
+  }
+
+    // Méthode pour traiter un ticket
+    traiter(ticketId: number): Observable<Ticket> {
+      return this.http.put<Ticket>(`${this.baseUrl1}/traiter/${ticketId}`, {}, { headers: this.getAuthHeaders() });
+    }
 
 }

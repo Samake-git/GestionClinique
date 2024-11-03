@@ -58,10 +58,14 @@
           <button mat-icon-button color="warn" (click)="deleteTicket(ticket.id)">
             <mat-icon>delete</mat-icon>
           </button>
-        <!-- Bouton de paiement -->
-        <button mat-icon-button color="accent" (click)="payerTicket(ticket.id)">
-          <mat-icon>payment</mat-icon>
-        </button>
+          <!-- Bouton de paiement -->
+          <button mat-icon-button color="accent" (click)="payerTicket(ticket.id)">
+            <mat-icon>payment</mat-icon>
+          </button>
+          <!-- Bouton d'impression -->
+          <button mat-icon-button color="accent" (click)="imprimerRecu(ticket)">
+            <mat-icon>print</mat-icon>
+          </button>
         </td>
       </ng-container>
 
@@ -69,5 +73,4 @@
       <tr mat-row *matRowDef="let row; columns: ['description', 'tel', 'action'];"></tr>
     </table>
   </div>
-
 </div>
