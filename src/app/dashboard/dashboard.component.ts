@@ -19,12 +19,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-
+  userRole: string | null = null;
   dataSource = new MatTableDataSource<Ticket>();
   displayedColumns: string[] = ['numero', 'description', 'etat'];
   tickets: Ticket[] = []; 
 
    // Propriétés pour les valeurs affichées dans les cartes
+
+   totalArgent: number = 0;
    totalAnalyses: number = 0; 
    totalTickets: number = 0;
    totalPatients: number = 0; 
@@ -77,12 +79,15 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
     this.loadTicketsByDate();
     this.loadTicketStates();
     this.loadTotalTickets();
     this.loadTickets();
     this.loadTotalPatients();
-    this.loadTotalAnalyse()
+    this.loadTotalAnalyse();
+    this.loadTotalArgent();
+   
   }
 
   // Charger les tickets par date et mettre à jour le graphique
@@ -154,6 +159,17 @@ export class DashboardComponent implements OnInit {
       );
     }
     
+      // Charger le total des Analyse depuis l'API
+      loadTotalArgent() {
+        this.ticketService.getTotalArgent().subscribe(
+          (total: number) => {
+            this.totalArgent = total;
+          },
+          error => {
+            console.error("Erreur lors du chargement du total des argents :", error);
+          }
+        );
+      }
     
 
     // Charger le total des tickets depuis l'API
@@ -237,5 +253,6 @@ export class DashboardComponent implements OnInit {
     return this.authService.isUserLaborantin();
   }
 
-
+  
+  
 }

@@ -10,6 +10,7 @@ import { Ticket } from '../interfaces/ticket.model';
 export class TicketService {
   private baseUrl = 'http://localhost:8080/api/receptionniste/ticket'; 
   private baseUrl1 =  'http://localhost:8080/api/medecin/ticket';
+  private baseUrl2 ='http://localhost:8080/api/receptionniste/payement/somme';
 
 
   constructor(private http: HttpClient) {}
@@ -56,6 +57,10 @@ export class TicketService {
 
   getTotalTickets(): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}/total`, { headers: this.getAuthHeaders() });
+  }
+
+  getTotalArgent(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl2}`, { headers: this.getAuthHeaders() });
   }
 
   getTotalPatients(): Observable<number> {
